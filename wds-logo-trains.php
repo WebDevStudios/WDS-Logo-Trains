@@ -131,8 +131,29 @@ class WDS_Logo_Trains {
 
 		// Make our screen nice.
 		add_filter( 'gettext', array( $this, 'screen_text' ), 20, 3 );
-		add_action('admin_head-post.php', array( $this, 'hide_visibility_screen' ) );
-		add_action('admin_head-post-new.php', array( $this, 'hide_visibility_screen' ) );
+		add_action( 'admin_head-post.php', array( $this, 'hide_visibility_screen' ) );
+		add_action( 'admin_head-post-new.php', array( $this, 'hide_visibility_screen' ) );
+		add_filter( 'post_row_actions', array( $this, 'remove_quick_edit' ), 10, 2 );
+	}
+
+	/**
+	 * Removes the Quick Edit from the bulk list options.
+	 * @param  array $actions Default Actions
+	 * @return array          Actions with any inline actions removed.
+	 */
+	public function remove_quick_edit( $actions ) {
+
+		global $current_screen;
+
+		// Only on this CPT.
+		if( $current_screen->post_type != $this->post_type ) {
+			return $actions;
+		}
+
+		// Remove any inline actions (Quick Edit).
+		unset($actions['inline hide-if-no-js']);
+
+		return $actions;
 	}
 
 	/**
@@ -140,7 +161,7 @@ class WDS_Logo_Trains {
 	 *
 	 * @return void
 	 */
-	public function hide_visibility_screen(){
+	public function hide_visibility_screen() {
 			if( $this->post_type == get_post_type() ){
 				echo '
 					<!-- Hides the publishing options -->
