@@ -46,7 +46,7 @@ class WDS_Logo_Trains {
 	protected $path     = '';
 	protected $basename = '';
 	protected static $single_instance = null;
-	protected $post_type = 'logo_trains';
+	protected $post_type = 'wds_logo_trains';
 
 	/**
 	 * Creates or returns an instance of this class.
