@@ -32,24 +32,26 @@ function wds_logo_train( $args ) {
 	?>
 
 	<?php if ( is_array( $logos ) ) : ?>
-		<ul class="wds-logo-train">
-			<?php foreach ( $logos as $attachment_id => $src ):
+		<div class="wds-logo-train-wrapper">
+			<ul class="wds-logo-train">
+				<?php foreach ( $logos as $attachment_id => $src ):
 
-			// Get the desired attachment src.
-			$src = wp_get_attachment_image_src( $attachment_id, $args['size'] );
-			$src = ( isset( $src[0] ) ) ? $src[0] : $src;
+				// Get the desired attachment src.
+				$src = wp_get_attachment_image_src( $attachment_id, $args['size'] );
+				$src = ( isset( $src[0] ) ) ? $src[0] : $src;
 
-			// Meta
-			$alt = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
+				// Meta
+				$alt = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
 
-			?>
-				<li class="logo" style="<?php $instance->logo_background_inline_style( $src ); ?>">
-					<?php if ( ! $args['no_img'] ) : ?>
-						<img src="<?php echo esc_url( $src ); ?>" alt="<?php echo ( $alt ) ? $alt : __( 'Logo', 'wds-logo-train' ); ?>" />
-					<?php endif; ?>
-				</li>
-			<?php endforeach; ?>
-		</ul>
+				?>
+					<li class="logo" style="<?php $instance->logo_background_inline_style( $src ); ?>">
+						<?php if ( ! $args['no_img'] ) : ?>
+							<img src="<?php echo esc_url( $src ); ?>" alt="<?php echo ( $alt ) ? $alt : __( 'Logo', 'wds-logo-train' ); ?>" />
+						<?php endif; ?>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
 	<?php endif; ?>
 
 	<?php

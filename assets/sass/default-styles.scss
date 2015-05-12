@@ -1,3 +1,30 @@
-body {
-	display: none;
+.wds-logo-train-wrapper {
+
+	.wds-logo-train {
+		list-style: none;
+		padding: 0;
+		margin-right: auto;
+		margin-left: auto;
+		text-align: center;
+
+		.logo {
+			display: inline-block;
+			margin: auto;
+			background-position: center center;
+			background-repeat: no-repeat;
+			background-size: contain;
+			text-align: left;
+			min-width: 75px;
+			min-height: 75px;
+
+			// The image is there for SEO reasons, but we use background by default.
+			img {
+				visibility: hidden;
+				height: 0;
+				width: 0;
+				overflow: hidden;
+			}
+		}
+
+	}
 }

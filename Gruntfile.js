@@ -61,7 +61,7 @@ module.exports = function( grunt ) {
 			},
 			dist: {
 				files: {
-					'assets/css/style.css': 'assets/**/*.scss'
+					'assets/css/wds-logo-train.css': 'assets/**/*.scss'
 				}
 			}
 		},
@@ -93,7 +93,7 @@ module.exports = function( grunt ) {
 
 	// Default task.
 	grunt.registerTask( 'scripts', [] );
-	grunt.registerTask( 'styles', [] );
+	grunt.registerTask( 'styles', [ 'sass' ] );
 	grunt.registerTask( 'php', [ 'addtextdomain', 'makepot' ] );
 	grunt.registerTask( 'default', ['styles', 'scripts', 'php'] );
 
