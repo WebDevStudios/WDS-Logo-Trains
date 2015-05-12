@@ -79,6 +79,7 @@ class WDS_Logo_Trains {
 
 		$this->plugin_classes();
 		$this->hooks();
+		$this->includes();
 	}
 
 	/**
@@ -312,7 +313,7 @@ class WDS_Logo_Trains {
 		if ( ! $this->meets_requirements() ) {
 			// Display our error
 			echo '<div id="message" class="error">';
-			echo '<p>' . sprintf( __( 'Logo Trains is missing requirements and has been <a href="%s">deactivated</a>. Please make sure all requirements are available.', 'wds-logo-trains' ), admin_url( 'plugins.php' ) ) . '</p>';
+				echo '<p>' . sprintf( __( 'Logo Trains is missing requirements and has been <a href="%s">deactivated</a>. Please make sure all requirements are available.', 'wds-logo-trains' ), admin_url( 'plugins.php' ) ) . '</p>';
 			echo '</div>';
 			// Deactivate our plugin
 			deactivate_plugins( $this->basename );
@@ -349,10 +350,18 @@ class WDS_Logo_Trains {
 	 * @since  1.0.1
 	 * @param  string $filename Name of the file to be included
 	 */
-	public static function include_file( $filename ) {
-		$file = self::dir( 'includes/'. $filename .'.php' );
-		if ( file_exists( $file ) ) {
-			return include_once( $file );
+	public static function includes( $filename = false ) {
+		if ( $filename ) {
+			$file = self::dir( './includes/'. $filename .'.php' );
+			if ( file_exists( $file ) ) {
+				return include_once( $file );
+			}
+		}
+
+		foreach ( new DirectoryIterator( trailingslashit( dirname( __FILE__ ) ) . 'includes' ) as $fileInfo ) {
+			if( ! $fileInfo->isDot() ) {
+				require_once trailingslashit( $fileInfo->getPath() ) . $fileInfo->getFilename();
+			}
 		}
 	}
 }
