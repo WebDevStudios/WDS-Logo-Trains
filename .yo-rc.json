@@ -1,0 +1,17 @@
+{
+  "generator-plugin-wp": {
+    "name": "Logo Trains",
+    "homepage": "http://webdevstudios.com",
+    "description": "Add logo train collections.",
+    "version": "1.0.1",
+    "author": "WebDevStudios",
+    "authoremail": "contact@webdevstudios.com",
+    "authorurl": "http://webdevstudios.com",
+    "license": "GPLv2",
+    "slug": "wds-mcf-logo-trains",
+    "classname": "WDS_MCF_Logo_Trains",
+    "classprefix": "WDSMCFLT_",
+    "prefix": "wds_mcf_logo_trains",
+    "year": 2015
+  }
+}

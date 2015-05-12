@@ -1,0 +1,115 @@
+# Copyright (C) 2015 WebDevStudios
+# This file is distributed under the GPLv2.
+msgid ""
+msgstr ""
+"Project-Id-Version: MCF Logo Trains 1.0\n"
+"Report-Msgid-Bugs-To: "
+"http://wordpress.org/support/plugin/wds-mcf-logo-trains\n"
+"POT-Creation-Date: 2015-05-05 19:16:57+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: grunt-wp-i18n 0.5.2\n"
+
+#: wds-mcf-logo-trains.php:140
+msgid "Save"
+msgstr ""
+
+#: wds-mcf-logo-trains.php:143
+msgid "Saved"
+msgstr ""
+
+#: wds-mcf-logo-trains.php:161
+msgid "Add New Logo Train"
+msgstr ""
+
+#: wds-mcf-logo-trains.php:162
+msgid "New Logo Train"
+msgstr ""
+
+#: wds-mcf-logo-trains.php:163
+msgid "Edit Logo Train"
+msgstr ""
+
+#: wds-mcf-logo-trains.php:164
+msgid "View Logo Train"
+msgstr ""
+
+#: wds-mcf-logo-trains.php:165
+msgid "All Logo Trains"
+msgstr ""
+
+#: wds-mcf-logo-trains.php:166
+msgid "Search Logo Trains"
+msgstr ""
+
+#: wds-mcf-logo-trains.php:167
+msgid "Parent Logo Trains:"
+msgstr ""
+
+#: wds-mcf-logo-trains.php:168
+msgid "No Logo Train found."
+msgstr ""
+
+#: wds-mcf-logo-trains.php:169
+msgid "No Logo Train found in Trash."
+msgstr ""
+
+#: wds-mcf-logo-trains.php:196
+msgid "Logo Train"
+msgstr ""
+
+#: wds-mcf-logo-trains.php:204
+msgid "Logos"
+msgstr ""
+
+#: wds-mcf-logo-trains.php:264
+msgid ""
+"Logo Trains is missing requirements and has been <a "
+"href=\"%s\">deactivated</a>. Please make sure all requirements are "
+"available."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "MCF Logo Trains"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://webdevstudios.com"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Add logo train collections."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WebDevStudios"
+msgstr ""
+
+#: wds-mcf-logo-trains.php:156
+msgctxt "post type general name"
+msgid "Logo Trains"
+msgstr ""
+
+#: wds-mcf-logo-trains.php:157
+msgctxt "post type singular name"
+msgid "Logo Train"
+msgstr ""
+
+#: wds-mcf-logo-trains.php:158
+msgctxt "admin menu"
+msgid "Logo Trains"
+msgstr ""
+
+#: wds-mcf-logo-trains.php:159
+msgctxt "add new on admin bar"
+msgid "Logo Train"
+msgstr ""
+
+#: wds-mcf-logo-trains.php:160
+msgctxt "book"
+msgid "Add New"
+msgstr ""

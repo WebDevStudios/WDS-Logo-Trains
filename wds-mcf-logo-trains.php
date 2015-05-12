@@ -1,0 +1,318 @@
+<?php
+
+/**
+* Plugin Name: MCF Logo Trains
+* Plugin URI:  http://webdevstudios.com
+* Description: Add logo train collections.
+* Version:     1.0
+* Author:      WebDevStudios
+* Author URI:  http://webdevstudios.com
+* Donate link: http://webdevstudios.com
+* License:     GPLv2
+* Text Domain: wds-mcf-logo-trains
+* Domain Path: /languages
+*/
+
+/**
+ * Copyright (c) 2015 WebDevStudios (email : contact@webdevstudios.com)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2 or, at
+ * your discretion, any later version, as published by the Free
+ * Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+
+/**
+ * Built using generator-plugin-wp
+ */
+
+/**
+ * Main initiation class
+ */
+class WDS_MCF_Logo_Trains {
+
+	const VERSION = '1.0';
+
+	protected $url      = '';
+	protected $path     = '';
+	protected $basename = '';
+	protected static $single_instance = null;
+	protected $post_type = 'mcf_logo_trains';
+
+	/**
+	 * Creates or returns an instance of this class.
+	 * @since  0.1.0
+	 * @return WDS_MCF_Logo_Trains A single instance of this class.
+	 */
+	public static function get_instance() {
+		if ( null === self::$single_instance ) {
+			self::$single_instance = new self();
+		}
+
+		return self::$single_instance;
+	}
+
+	/**
+	 * Sets up our plugin
+	 * @since  1.0.1
+	 */
+	protected function __construct() {
+		$this->basename = plugin_basename( __FILE__ );
+		$this->url      = plugin_dir_url( __FILE__ );
+		$this->path     = plugin_dir_path( __FILE__ );
+
+		$this->plugin_classes();
+		$this->hooks();
+	}
+
+	/**
+	 * Attach other plugin classes to the base plugin class.
+	 * @since 1.0.1
+	 */
+	function plugin_classes() {
+		// Attach other plugin classes to the base plugin class.
+		// $this->admin = new WDSMCFLT_Admin( $this );
+	}
+
+	/**
+	 * Add hooks and filters
+	 * @since 1.0.1
+	 */
+	public function hooks() {
+		register_activation_hook( __FILE__, array( $this, '_activate' ) );
+		register_deactivation_hook( __FILE__, array( $this, '_deactivate' ) );
+
+		add_action( 'init', array( $this, 'init' ) );
+
+		// Create custom post types.
+		add_action( 'init', array( $this, 'register_cpt' ) );
+
+		// Add Custom Meta Boxes
+		add_action( 'cmb2_init', array( $this, 'logo_train_cmb2_init' ) );
+
+		// Make our screen nice.
+		add_filter( 'gettext', array( $this, 'screen_text' ), 20, 3 );
+		add_action('admin_head-post.php', array( $this, 'hide_visibility_screen' ) );
+		add_action('admin_head-post-new.php', array( $this, 'hide_visibility_screen' ) );
+	}
+
+	/**
+	 * Hides the publishing options since they aren't relevant here.
+	 *
+	 * @return void
+	 */
+	public function hide_visibility_screen(){
+			if( $this->post_type == get_post_type() ){
+				echo '
+					<!-- Hides the publishing options -->
+					<style type="text/css">
+						#misc-publishing-actions,
+						#minor-publishing-actions {
+							display:none;
+						}
+					</style>
+				';
+			}
+	}
+
+	/**
+	 * Changes default text to text that makes more sense for this plugin.
+	 *
+	 * @param  string $translated_text The un-translated text.
+	 * @param  string $text            The original translated text.
+	 * @param  string $domain          The text domain.
+	 *
+	 * @return string                  Modified text.
+	 */
+	public function screen_text( $translated_text, $text, $domain ) {
+		if ( $this->post_type == get_post_type() ) {
+			switch ( $translated_text ) {
+				case 'Publish' :
+					$translated_text = __( 'Save', $domain );
+					break;
+				case 'Published' :
+					$translated_text = __( 'Saved', $domain );
+					break;
+			}
+		}
+		return $translated_text;
+	}
+
+	/**
+	 * Register Logo Train CPT.
+	 */
+	public function register_cpt() {
+
+		$labels = array(
+			'name'               => _x( 'Logo Trains', 'post type general name', 'mcf' ),
+			'singular_name'      => _x( 'Logo Train', 'post type singular name', 'mcf' ),
+			'menu_name'          => _x( 'Logo Trains', 'admin menu', 'mcf' ),
+			'name_admin_bar'     => _x( 'Logo Train', 'add new on admin bar', 'mcf' ),
+			'add_new'            => _x( 'Add New', 'book', 'mcf' ),
+			'add_new_item'       => __( 'Add New Logo Train', 'mcf' ),
+			'new_item'           => __( 'New Logo Train', 'mcf' ),
+			'edit_item'          => __( 'Edit Logo Train', 'mcf' ),
+			'view_item'          => __( 'View Logo Train', 'mcf' ),
+			'all_items'          => __( 'All Logo Trains', 'mcf' ),
+			'search_items'       => __( 'Search Logo Trains', 'mcf' ),
+			'parent_item_colon'  => __( 'Parent Logo Trains:', 'mcf' ),
+			'not_found'          => __( 'No Logo Train found.', 'mcf' ),
+			'not_found_in_trash' => __( 'No Logo Train found in Trash.', 'mcf' )
+		);
+
+		$args = array(
+			'labels'    => $labels,
+			'public'    => false,
+			'show_ui'   => true,
+			'supports'  => array( 'title' ),
+			'rewrite'   => false,
+			'menu_icon' => 'dashicons-images-alt2',
+		);
+
+		register_post_type( $this->post_type, $args );
+
+	}
+
+	/**
+	 * Add a way to add multiple images (or logos) to CPT.
+	 *
+	 * @return void
+	 */
+	public function logo_train_cmb2_init() {
+
+		$prefix = '_wds_mcf_logo_train_';
+
+		$box = new_cmb2_box( array(
+			'id'            => $prefix . 'metabox',
+			'title'         => __( 'Logo Train', 'mcf' ),
+			'object_types'  => array( $this->post_type, ), // Post type
+			'context'       => 'normal',
+			'priority'      => 'high',
+			'show_names'    => false,
+		) );
+
+		$box->add_field( array(
+			'name'       => __( 'Logos', 'mcf' ),
+			'id'         => $prefix . 'logos',
+			'type'       => 'file_list',
+			'preview_size' => array( 100, 100 ),
+		) );
+
+	}
+
+	/**
+	 * Activate the plugin
+	 * @since  1.0.1
+	 */
+	function _activate() {
+		// Make sure any rewrite functionality has been loaded
+		flush_rewrite_rules();
+	}
+
+	/**
+	 * Deactivate the plugin
+	 * Uninstall routines should be in uninstall.php
+	 * @since  1.0.1
+	 */
+	function _deactivate() {
+		// Nothing to do.
+	}
+
+	/**
+	 * Init hooks
+	 * @since  1.0.1
+	 * @return null
+	 */
+	public function init() {
+		if ( $this->check_requirements() ) {
+			load_plugin_textdomain( 'wds-mcf-logo-trains', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		}
+	}
+
+	/**
+	 * Check that all plugin requirements are met
+	 * @since  1.0.1
+	 * @return boolean
+	 */
+	public static function meets_requirements() {
+		// Do checks for required classes / functions
+		// function_exists('') & class_exists('')
+
+		// We have met all requirements
+		return true;
+	}
+
+	/**
+	 * Check if the plugin meets requirements and
+	 * disable it if they are not present.
+	 * @since  1.0.1
+	 * @return boolean result of meets_requirements
+	 */
+	public function check_requirements() {
+		if ( ! $this->meets_requirements() ) {
+			// Display our error
+			echo '<div id="message" class="error">';
+			echo '<p>' . sprintf( __( 'Logo Trains is missing requirements and has been <a href="%s">deactivated</a>. Please make sure all requirements are available.', 'wds-mcf-logo-trains' ), admin_url( 'plugins.php' ) ) . '</p>';
+			echo '</div>';
+			// Deactivate our plugin
+			deactivate_plugins( $this->basename );
+
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Magic getter for our object.
+	 *
+	 * @since  1.0.1
+	 * @param string $field
+	 * @throws Exception Throws an exception if the field is invalid.
+	 * @return mixed
+	 */
+	public function __get( $field ) {
+		switch ( $field ) {
+			case 'version':
+				return self::VERSION;
+			case 'basename':
+			case 'url':
+			case 'path':
+				return $this->$field;
+			default:
+				throw new Exception( 'Invalid '. __CLASS__ .' property: ' . $field );
+		}
+	}
+
+	/**
+	 * Include a file from the includes directory
+	 * @since  1.0.1
+	 * @param  string $filename Name of the file to be included
+	 */
+	public static function include_file( $filename ) {
+		$file = self::dir( 'includes/'. $filename .'.php' );
+		if ( file_exists( $file ) ) {
+			return include_once( $file );
+		}
+	}
+}
+
+/**
+ * Grab the WDS_MCF_Logo_Trains object and return it.
+ * Wrapper for WDS_MCF_Logo_Trains::get_instance()
+ */
+function wds_mcf_logo_trains() {
+	return WDS_MCF_Logo_Trains::get_instance();
+}
+
+// Kick it off
+wds_mcf_logo_trains();

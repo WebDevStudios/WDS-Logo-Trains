@@ -1,0 +1,18 @@
+{
+  "name": "wds-mcf-logo-trains",
+  "description": "Add logo train collections.",
+  "license": "GPLv2",
+  "authors": [
+    "WebDevStudios"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  }
+}
