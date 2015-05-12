@@ -1,16 +1,17 @@
 {
-	"name": "wds-mcf-logo-trains",
-	"version": "1.0.1",
-	"description": "Add logo train collections.",
-	"author": {
-		"name": "WebDevStudios",
-		"url": "http://webdevstudios.com"
-	},
-	"license": "GPLv2",
-	"devDependencies": {
-	    "grunt": "latest",
-	    "grunt-contrib-watch": "latest",
-	    "grunt-wp-i18n": "latest",
-	    "load-grunt-tasks": "latest"
-	}
+  "name": "wds-mcf-logo-trains",
+  "version": "1.0.1",
+  "description": "Add logo train collections.",
+  "author": {
+    "name": "WebDevStudios",
+    "url": "http://webdevstudios.com"
+  },
+  "license": "GPLv2",
+  "devDependencies": {
+    "grunt": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-sass": "^1.0.0",
+    "grunt-wp-i18n": "latest",
+    "load-grunt-tasks": "latest"
+  }
 }

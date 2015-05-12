@@ -145,6 +145,13 @@ class WDS_Logo_Trains {
 		add_action( 'admin_head-post.php', array( $this, 'hide_visibility_screen' ) );
 		add_action( 'admin_head-post-new.php', array( $this, 'hide_visibility_screen' ) );
 		add_filter( 'post_row_actions', array( $this, 'remove_quick_edit' ), 10, 2 );
+
+		// Default styles
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
+	}
+
+	public function enqueue_styles() {
+		wp_enqueue_style( '', plugins_url( __FILE__, 'assets/css/' ), array(), time(), 'screen' );
 	}
 
 	/**

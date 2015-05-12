@@ -2,10 +2,9 @@
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: MCF Logo Trains 1.0\n"
-"Report-Msgid-Bugs-To: "
-"http://wordpress.org/support/plugin/wds-mcf-logo-trains\n"
-"POT-Creation-Date: 2015-05-05 19:16:57+00:00\n"
+"Project-Id-Version: Logo Trains 1.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wds-logo-trains\n"
+"POT-Creation-Date: 2015-05-12 19:14:34+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,59 +13,63 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: grunt-wp-i18n 0.5.2\n"
 
-#: wds-mcf-logo-trains.php:140
+#: includes/template-tags.php:48
+msgid "Logo"
+msgstr ""
+
+#: wds-logo-trains.php:209
 msgid "Save"
 msgstr ""
 
-#: wds-mcf-logo-trains.php:143
+#: wds-logo-trains.php:212
 msgid "Saved"
 msgstr ""
 
-#: wds-mcf-logo-trains.php:161
+#: wds-logo-trains.php:230
 msgid "Add New Logo Train"
 msgstr ""
 
-#: wds-mcf-logo-trains.php:162
+#: wds-logo-trains.php:231
 msgid "New Logo Train"
 msgstr ""
 
-#: wds-mcf-logo-trains.php:163
+#: wds-logo-trains.php:232
 msgid "Edit Logo Train"
 msgstr ""
 
-#: wds-mcf-logo-trains.php:164
+#: wds-logo-trains.php:233
 msgid "View Logo Train"
 msgstr ""
 
-#: wds-mcf-logo-trains.php:165
+#: wds-logo-trains.php:234
 msgid "All Logo Trains"
 msgstr ""
 
-#: wds-mcf-logo-trains.php:166
+#: wds-logo-trains.php:235
 msgid "Search Logo Trains"
 msgstr ""
 
-#: wds-mcf-logo-trains.php:167
+#: wds-logo-trains.php:236
 msgid "Parent Logo Trains:"
 msgstr ""
 
-#: wds-mcf-logo-trains.php:168
+#: wds-logo-trains.php:237
 msgid "No Logo Train found."
 msgstr ""
 
-#: wds-mcf-logo-trains.php:169
+#: wds-logo-trains.php:238
 msgid "No Logo Train found in Trash."
 msgstr ""
 
-#: wds-mcf-logo-trains.php:196
+#: wds-logo-trains.php:263
 msgid "Logo Train"
 msgstr ""
 
-#: wds-mcf-logo-trains.php:204
+#: wds-logo-trains.php:271
 msgid "Logos"
 msgstr ""
 
-#: wds-mcf-logo-trains.php:264
+#: wds-logo-trains.php:339
 msgid ""
 "Logo Trains is missing requirements and has been <a "
 "href=\"%s\">deactivated</a>. Please make sure all requirements are "
@@ -74,7 +77,7 @@ msgid ""
 msgstr ""
 
 #. Plugin Name of the plugin/theme
-msgid "MCF Logo Trains"
+msgid "Logo Trains"
 msgstr ""
 
 #. Author URI of the plugin/theme
@@ -89,27 +92,27 @@ msgstr ""
 msgid "WebDevStudios"
 msgstr ""
 
-#: wds-mcf-logo-trains.php:156
+#: wds-logo-trains.php:225
 msgctxt "post type general name"
 msgid "Logo Trains"
 msgstr ""
 
-#: wds-mcf-logo-trains.php:157
+#: wds-logo-trains.php:226
 msgctxt "post type singular name"
 msgid "Logo Train"
 msgstr ""
 
-#: wds-mcf-logo-trains.php:158
+#: wds-logo-trains.php:227
 msgctxt "admin menu"
 msgid "Logo Trains"
 msgstr ""
 
-#: wds-mcf-logo-trains.php:159
+#: wds-logo-trains.php:228
 msgctxt "add new on admin bar"
 msgid "Logo Train"
 msgstr ""
 
-#: wds-mcf-logo-trains.php:160
+#: wds-logo-trains.php:229
 msgctxt "book"
 msgid "Add New"
 msgstr ""
