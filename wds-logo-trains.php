@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Plugin Name: MCF Logo Trains
+* Plugin Name: Logo Trains
 * Plugin URI:  http://webdevstudios.com
 * Description: Add logo train collections.
 * Version:     1.0
@@ -9,7 +9,7 @@
 * Author URI:  http://webdevstudios.com
 * Donate link: http://webdevstudios.com
 * License:     GPLv2
-* Text Domain: wds-mcf-logo-trains
+* Text Domain: wds-logo-trains
 * Domain Path: /languages
 */
 
@@ -38,7 +38,7 @@
 /**
  * Main initiation class
  */
-class WDS_MCF_Logo_Trains {
+class WDS_Logo_Trains {
 
 	const VERSION = '1.0';
 
@@ -46,12 +46,12 @@ class WDS_MCF_Logo_Trains {
 	protected $path     = '';
 	protected $basename = '';
 	protected static $single_instance = null;
-	protected $post_type = 'mcf_logo_trains';
+	protected $post_type = 'logo_trains';
 
 	/**
 	 * Creates or returns an instance of this class.
 	 * @since  0.1.0
-	 * @return WDS_MCF_Logo_Trains A single instance of this class.
+	 * @return WDS_Logo_Trains A single instance of this class.
 	 */
 	public static function get_instance() {
 		if ( null === self::$single_instance ) {
@@ -80,7 +80,7 @@ class WDS_MCF_Logo_Trains {
 	 */
 	function plugin_classes() {
 		// Attach other plugin classes to the base plugin class.
-		// $this->admin = new WDSMCFLT_Admin( $this );
+		// $this->admin = new WDLT_Admin( $this );
 	}
 
 	/**
@@ -189,7 +189,7 @@ class WDS_MCF_Logo_Trains {
 	 */
 	public function logo_train_cmb2_init() {
 
-		$prefix = '_wds_mcf_logo_train_';
+		$prefix = '_wds_logo_train_';
 
 		$box = new_cmb2_box( array(
 			'id'            => $prefix . 'metabox',
@@ -234,7 +234,7 @@ class WDS_MCF_Logo_Trains {
 	 */
 	public function init() {
 		if ( $this->check_requirements() ) {
-			load_plugin_textdomain( 'wds-mcf-logo-trains', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+			load_plugin_textdomain( 'wds-logo-trains', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		}
 	}
 
@@ -261,7 +261,7 @@ class WDS_MCF_Logo_Trains {
 		if ( ! $this->meets_requirements() ) {
 			// Display our error
 			echo '<div id="message" class="error">';
-			echo '<p>' . sprintf( __( 'Logo Trains is missing requirements and has been <a href="%s">deactivated</a>. Please make sure all requirements are available.', 'wds-mcf-logo-trains' ), admin_url( 'plugins.php' ) ) . '</p>';
+			echo '<p>' . sprintf( __( 'Logo Trains is missing requirements and has been <a href="%s">deactivated</a>. Please make sure all requirements are available.', 'wds-logo-trains' ), admin_url( 'plugins.php' ) ) . '</p>';
 			echo '</div>';
 			// Deactivate our plugin
 			deactivate_plugins( $this->basename );
@@ -307,12 +307,12 @@ class WDS_MCF_Logo_Trains {
 }
 
 /**
- * Grab the WDS_MCF_Logo_Trains object and return it.
- * Wrapper for WDS_MCF_Logo_Trains::get_instance()
+ * Grab the WDS_Logo_Trains object and return it.
+ * Wrapper for WDS_Logo_Trains::get_instance()
  */
-function wds_mcf_logo_trains() {
-	return WDS_MCF_Logo_Trains::get_instance();
+function wds_logo_trains() {
+	return WDS_Logo_Trains::get_instance();
 }
 
 // Kick it off
-wds_mcf_logo_trains();
+wds_logo_trains();
