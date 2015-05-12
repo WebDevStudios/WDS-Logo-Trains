@@ -47,6 +47,7 @@ class WDS_Logo_Trains {
 	protected static $single_instance = null;
 	protected $post_type = 'wds_logo_trains';
 	protected $text_domain;
+	protected $meta_prefix = '_wds_logo_train_';
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -80,6 +81,15 @@ class WDS_Logo_Trains {
 		$this->plugin_classes();
 		$this->hooks();
 		$this->includes();
+	}
+
+	/**
+	 * Returns the meta prefix.
+	 *
+	 * @return string The meta prefix.
+	 */
+	function meta_prefix( $preprefix = false ) {
+		return ( $preprefix ) ? $this->meta_prefix . $preprefix : $this->meta_prefix;
 	}
 
 	/**
@@ -241,10 +251,8 @@ class WDS_Logo_Trains {
 	 */
 	public function logo_train_cmb2_init() {
 
-		$prefix = '_wds_logo_train_';
-
 		$box = new_cmb2_box( array(
-			'id'            => $prefix . 'metabox',
+			'id'            => $this->meta_prefix( 'metabox' ),
 			'title'         => __( 'Logo Train', 'mcf' ),
 			'object_types'  => array( $this->post_type, ), // Post type
 			'context'       => 'normal',
@@ -254,11 +262,19 @@ class WDS_Logo_Trains {
 
 		$box->add_field( array(
 			'name'       => __( 'Logos', 'mcf' ),
-			'id'         => $prefix . 'logos',
+			'id'         => $this->meta_prefix( 'logos' ),
 			'type'       => 'file_list',
 			'preview_size' => array( 100, 100 ),
 		) );
 
+	}
+
+	public function logo_background_inline_style( $src, $return = false ) {
+		if ( $return ) {
+			return "background-image: url($src); ";
+		} else {
+			echo "background-image: url($src); ";
+		}
 	}
 
 	/**
@@ -368,11 +384,14 @@ class WDS_Logo_Trains {
 
 /**
  * Grab the WDS_Logo_Trains object and return it.
- * Wrapper for WDS_Logo_Trains::get_instance()
+ *
+ * Template Tag Wrapper for WDS_Logo_Trains::get_instance()
+ *
+ * @return object Plugin instance.
  */
 function wds_logo_trains() {
 	return WDS_Logo_Trains::get_instance();
 }
 
-// Kick it off
+// Kick it off.
 wds_logo_trains();
