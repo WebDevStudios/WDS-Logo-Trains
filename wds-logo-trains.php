@@ -40,13 +40,13 @@
  */
 class WDS_Logo_Trains {
 
-	const VERSION = '1.0';
-
+	protected $version;
 	protected $url      = '';
 	protected $path     = '';
 	protected $basename = '';
 	protected static $single_instance = null;
 	protected $post_type = 'wds_logo_trains';
+	protected $text_domain;
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -66,6 +66,13 @@ class WDS_Logo_Trains {
 	 * @since  1.0.1
 	 */
 	protected function __construct() {
+
+		// Get the header values easily.
+		$this->plugin_headers = $this->plugin_headers();
+
+		$this->text_domain = $this->header('Text Domain');
+		$this->version = $this->header('Version');
+
 		$this->basename = plugin_basename( __FILE__ );
 		$this->url      = plugin_dir_url( __FILE__ );
 		$this->path     = plugin_dir_path( __FILE__ );
@@ -81,6 +88,29 @@ class WDS_Logo_Trains {
 	function plugin_classes() {
 		// Attach other plugin classes to the base plugin class.
 		// $this->admin = new WDLT_Admin( $this );
+	}
+
+	/**
+	 * One of the headers of the plugin
+	 * @param  string $header The header you would like.
+	 * @return mixed          The header value, false if unset.
+	 */
+	function header( $header ) {
+		return ( isset ( $this->plugin_headers[ $header ] ) ) ? $this->plugin_headers[ $header ] : false;
+	}
+
+	// The headers of the plugin.
+	function plugin_headers() {
+		return get_file_data( __FILE__, array(
+			'Plugin Name' => 'Plugin Name',
+			'Plugin URI' => 'Plugin URI',
+			'Version' => 'Version',
+			'Description' => 'Description',
+			'Author' => 'Author',
+			'Author URI' => 'Author URI',
+			'Text Domain' => 'Text Domain',
+			'Domain Path' => 'Domain Path',
+		), 'plugin' );
 	}
 
 	/**
@@ -283,7 +313,7 @@ class WDS_Logo_Trains {
 	public function __get( $field ) {
 		switch ( $field ) {
 			case 'version':
-				return self::VERSION;
+				return $this->version;
 			case 'basename':
 			case 'url':
 			case 'path':
