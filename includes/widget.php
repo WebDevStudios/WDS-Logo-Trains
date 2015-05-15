@@ -91,12 +91,15 @@ class WDS_Logo_Train extends WP_Widget {
 	public function widget( $args, $instance ) {
 
 		echo self::get_widget( array(
-			'before_widget' => $args['before_widget'],
-			'after_widget'  => $args['after_widget'],
-			'before_title'  => $args['before_title'],
-			'after_title'   => $args['after_title'],
-			'title'         => $instance['title'],
-			'text'          => $instance['text'],
+			'before_widget'   => $args['before_widget'],
+			'after_widget'    => $args['after_widget'],
+			'before_title'    => $args['before_title'],
+			'after_title'     => $args['after_title'],
+
+			// Our Widget settings.
+			'size'            => $instance['size'],
+			'post_id'         => $instance['post_id'],
+			'logos_per_train' => $instance['logos_per_train'],
 		) );
 
 	}
