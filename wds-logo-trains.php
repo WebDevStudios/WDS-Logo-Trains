@@ -172,7 +172,7 @@ class WDS_Logo_Trains {
 	}
 
 	public function enqueue_styles() {
-		wp_enqueue_style( 'wds-logo-train', plugins_url( 'assets/css/wds-logo-trains.css', __FILE__ ), array(), $this->script_version(), 'screen' );
+		wp_enqueue_style( 'wds-logo-train', plugins_url( 'assets/css/public/wds-logo-trains.css', __FILE__ ), array(), $this->script_version(), 'screen' );
 	}
 
 	/**
