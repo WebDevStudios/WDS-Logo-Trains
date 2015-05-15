@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Logo Trains 1.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wds-logo-trains\n"
-"POT-Creation-Date: 2015-05-15 21:21:13+00:00\n"
+"POT-Creation-Date: 2015-05-15 21:32:51+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,7 +17,7 @@ msgstr ""
 msgid "Logo"
 msgstr ""
 
-#: includes/widget.php:54 includes/widget.php:55 wds-logo-trains.php:371
+#: includes/widget.php:54 includes/widget.php:55 wds-logo-trains.php:372
 msgid "Logo Train"
 msgstr ""
 
@@ -25,97 +25,97 @@ msgstr ""
 msgid "Adds a train of logos."
 msgstr ""
 
-#: includes/widget.php:192
+#: includes/widget.php:189
 msgid "Large"
 msgstr ""
 
-#: includes/widget.php:193
+#: includes/widget.php:190
 msgid "Medium"
 msgstr ""
 
-#: includes/widget.php:194
+#: includes/widget.php:191
 msgid "Thumbnail"
 msgstr ""
 
-#: includes/widget.php:201
+#: includes/widget.php:198
 msgid "Choose Logo Train:"
 msgstr ""
 
-#: includes/widget.php:204
+#: includes/widget.php:201
 msgid "&mdash; None &mdash;"
 msgstr ""
 
-#: includes/widget.php:222
+#: includes/widget.php:219
 msgid "Image Size:"
 msgstr ""
 
-#: includes/widget.php:233
+#: includes/widget.php:230
 msgid "Split Logos Into Sections of:"
 msgstr ""
 
-#: includes/widget.php:237
+#: includes/widget.php:234
 msgid ""
 "This will create a separate <code>ul</code> for each <code>&times;</code> "
 "number of logos."
 msgstr ""
 
-#: wds-logo-trains.php:310
+#: wds-logo-trains.php:311
 msgid "Save"
 msgstr ""
 
-#: wds-logo-trains.php:313
+#: wds-logo-trains.php:314
 msgid "Saved"
 msgstr ""
 
-#: wds-logo-trains.php:318
+#: wds-logo-trains.php:319
 msgid "URL"
 msgstr ""
 
-#: wds-logo-trains.php:338
+#: wds-logo-trains.php:339
 msgid "Add New Logo Train"
 msgstr ""
 
-#: wds-logo-trains.php:339
+#: wds-logo-trains.php:340
 msgid "New Logo Train"
 msgstr ""
 
-#: wds-logo-trains.php:340
+#: wds-logo-trains.php:341
 msgid "Edit Logo Train"
 msgstr ""
 
-#: wds-logo-trains.php:341
+#: wds-logo-trains.php:342
 msgid "View Logo Train"
 msgstr ""
 
-#: wds-logo-trains.php:342
+#: wds-logo-trains.php:343
 msgid "All Logo Trains"
 msgstr ""
 
-#: wds-logo-trains.php:343
+#: wds-logo-trains.php:344
 msgid "Search Logo Trains"
 msgstr ""
 
-#: wds-logo-trains.php:344
+#: wds-logo-trains.php:345
 msgid "Parent Logo Trains:"
 msgstr ""
 
-#: wds-logo-trains.php:345
+#: wds-logo-trains.php:346
 msgid "No Logo Train found."
 msgstr ""
 
-#: wds-logo-trains.php:346
+#: wds-logo-trains.php:347
 msgid "No Logo Train found in Trash."
 msgstr ""
 
-#: wds-logo-trains.php:379
+#: wds-logo-trains.php:380
 msgid "Logo Order"
 msgstr ""
 
-#: wds-logo-trains.php:382
+#: wds-logo-trains.php:383
 msgid "Add or Order Logos below. Select logo to edit it, other attributes, and URL."
 msgstr ""
 
-#: wds-logo-trains.php:463
+#: wds-logo-trains.php:464
 msgid ""
 "Logo Trains is missing requirements and has been <a "
 "href=\"%s\">deactivated</a>. Please make sure all requirements are "
@@ -138,27 +138,27 @@ msgstr ""
 msgid "WebDevStudios"
 msgstr ""
 
-#: wds-logo-trains.php:333
+#: wds-logo-trains.php:334
 msgctxt "post type general name"
 msgid "Logo Trains"
 msgstr ""
 
-#: wds-logo-trains.php:334
+#: wds-logo-trains.php:335
 msgctxt "post type singular name"
 msgid "Logo Train"
 msgstr ""
 
-#: wds-logo-trains.php:335
+#: wds-logo-trains.php:336
 msgctxt "admin menu"
 msgid "Logo Trains"
 msgstr ""
 
-#: wds-logo-trains.php:336
+#: wds-logo-trains.php:337
 msgctxt "add new on admin bar"
 msgid "Logo Train"
 msgstr ""
 
-#: wds-logo-trains.php:337
+#: wds-logo-trains.php:338
 msgctxt "book"
 msgid "Add New"
 msgstr ""

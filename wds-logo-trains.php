@@ -192,6 +192,7 @@ class WDS_Logo_Trains {
 
 		// Get the desired attachment src for the size we want.
 		$details['src'] = wp_get_attachment_image_src( $attachment_id, $size );
+
 		$details['src'] = ( isset( $details['src'][0] ) ) ? $details['src'][0] : $details['src'];
 
 		// Meta alt tag.

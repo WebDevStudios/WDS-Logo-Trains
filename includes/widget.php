@@ -123,27 +123,24 @@ class WDS_Logo_Train extends WP_Widget {
 			self::$shortcode
 		);
 
-		// No post ID set (via shortcode);
+		// No post id, no train.
 		if ( ! $atts['post_id'] ) {
-			global $post;
-
-			// Use the current post.
-			$post_id = $post->ID;
+			return;
 		}
 
 		// Before widget hook
-		$widget .= $atts['before_widget'];
+		$widget .= ( isset( $atts['before_widget'] ) ) ? $atts['before_widget'] : '';
 
 		if ( function_exists( 'wds_logo_train' ) ):
 			$widget .= wds_logo_train( array(
-				'post_id'         => 1390,
-				'size'            => 'large',
-				'logos_per_train' => false,
+				'post_id'         => $atts['post_id'],
+				'size'            => $atts['size'],
+				'logos_per_train' => $atts['logos_per_train'],
 			), 'return' );
 		endif;
 
 		// After widget hook
-		$widget .= $atts['after_widget'];
+		$widget .= ( isset( $atts['after_widget'] ) ) ? $atts['after_widget'] : '';
 
 		return $widget;
 	}
