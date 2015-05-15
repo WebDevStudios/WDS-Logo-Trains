@@ -22,7 +22,7 @@ function wds_logo_train( $args ) {
 	$defaults = array(
 		'post_id'         => false,
 		'no_img'          => false,
-		'size'            => 'thumbnail',
+		'size'            => 'large',
 		'logos_per_train' => ( is_int( $args['logos_per_train'] ) ) ? $args['logos_per_train'] : false,
 	);
 	$args = wp_parse_args( $args, $defaults );
@@ -66,7 +66,7 @@ function wds_logo_train( $args ) {
 
 				<?php foreach ( $logos as $attachment_id => $src ) :
 
-					$logo_details = $plugin->get_logo_details( $attachment_id );
+					$logo_details = $plugin->get_logo_details( $attachment_id, $args['size'] );
 					$src = $logo_details['src']; // A better URL
 					$alt = $logo_details['alt'];
 					$description_as_url = $logo_details['url'];
