@@ -12,7 +12,6 @@ $wds-logo-train-min-height: 75px;
 		padding: 0;
 		text-align: center;
 		min-height: $wds-logo-train-min-height;
-		white-space: nowrap;
 
 		.logo {
 			background-position: center center;
@@ -37,29 +36,32 @@ $wds-logo-train-min-height: 75px;
 			display: block;
 		}
 
-	&.slide {
-		margin-left: 200%;
-		transition-property: margin-left;
-		transition-duration: 5s;
-		transition-timing: ease;
-		transition-delay: 0;
-	}
+		// To animate, add this class (required)
+		&.slide {
+			margin-left: 200%;
+			transition-delay: 0;
+			transition-duration: 5s;
+			transition-property: margin-left;
+			transition-timing: ease;
+			white-space: nowrap;
+		}
 
-	&.slide-out-right {
-		margin-left: 200%;
-	}
+		// ... then add any of these.
+		&.slide-out-right {
+			margin-left: 200%;
+		}
 
-	&.slide-to-middle {
-		margin-left: 0px;
-	}
+		&.slide-to-middle {
+			margin-left: 0px;
+		}
 
-	&.slide-out-left {
-		margin-left: -200%;
-	}
+		&.slide-out-left {
+			margin-left: -200%;
+		}
 
-	&.slide-across-left {
-		margin-left: -400%;
-	}
+		&.slide-across-left {
+			margin-left: -400%;
+		}
 
 	}
 }

@@ -149,6 +149,9 @@ class WDS_Logo_Trains {
 		// Default styles
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 
+		// Admin Styles
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+
 		// JS
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
@@ -159,6 +162,10 @@ class WDS_Logo_Trains {
 		} else {
 			return $this->version;
 		}
+	}
+
+	public function admin_enqueue_scripts() {
+		wp_enqueue_style( 'admin-wds-logo-train', plugins_url( 'assets/css/admin/wds-logo-trains.css', __FILE__ ), array(), $this->script_version(), 'screen' );
 	}
 
 	public function enqueue_scripts() {
@@ -278,14 +285,22 @@ class WDS_Logo_Trains {
 			'object_types'  => array( $this->post_type, ), // Post type
 			'context'       => 'normal',
 			'priority'      => 'high',
-			'show_names'    => false,
+			'show_names'    => true,
 		) );
 
 		$box->add_field( array(
-			'name'       => __( 'Logos', 'mcf' ),
+			'name'       => __( 'Logo Order', 'mcf' ),
 			'id'         => $this->meta_prefix( 'logos' ),
 			'type'       => 'file_list',
-			'preview_size' => array( 100, 100 ),
+			'desc' => __( 'Desc', 'cmb2' ),
+			'preview_size' => array( 50, 50 ),
+		) );
+
+		$box->add_field( array(
+			'name' => __( 'Link', 'mcf' ),
+			'desc' => __( 'Desc', 'cmb2' ),
+			'id'   => $this->meta_prefix( 'link' ),
+			'type' => 'text',
 		) );
 
 	}

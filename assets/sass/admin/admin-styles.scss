@@ -1,0 +1,9 @@
+// Force out logo list to be a grid.
+.post-type-wds_logo_trains {
+	#_wds_logo_train_logos-status {
+		img {
+			height: 50px;
+			width: 50px;
+		}
+	}
+}
