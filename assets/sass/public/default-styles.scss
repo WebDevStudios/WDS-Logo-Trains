@@ -13,25 +13,6 @@ $wds-logo-train-min-height: 75px;
 		text-align: center;
 		min-height: $wds-logo-train-min-height;
 
-		.logo {
-			background-position: center center;
-			background-repeat: no-repeat;
-			background-size: contain;
-			margin: auto;
-			min-height: $wds-logo-train-min-height;
-			min-width: $wds-logo-train-min-height;
-			text-align: left;
-			display: inline-block;
-
-			// The image is there for SEO reasons, but we use background by default.
-			img {
-				height: 0;
-				overflow: hidden;
-				visibility: hidden;
-				width: 0;
-			}
-		}
-
 		&.visible {
 			display: block;
 		}
@@ -63,5 +44,34 @@ $wds-logo-train-min-height: 75px;
 			margin-left: -400%;
 		}
 
+		.logo {
+			background-position: center center;
+			background-repeat: no-repeat;
+			background-size: contain;
+			margin: auto;
+			min-height: $wds-logo-train-min-height;
+			min-width: $wds-logo-train-min-height;
+			text-align: left;
+			display: inline-block;
+
+			// The image is there for SEO reasons, but we use background by default.
+			img {
+				height: 0;
+				overflow: hidden;
+				visibility: hidden;
+				width: 0;
+			}
+		}
+
+	}
+
+	.train-title,
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		text-align: center;
 	}
 }

@@ -15,7 +15,8 @@ if ( ! function_exists( 'wds_logo_train' ) ) :
  *         wds_logo_train( array(
  *             'post_id'         => 1390, // ID of the post of the logo train.
  *             'size'            => 'large', // Image size.
- *             'logos_per_train' => false, // Group logo by X into separate <ul>'s
+ *             'logos_per_train' => false, // Group logo by X into separate <ul>'s.
+ *             'before_logos'    => false, // Output right before logos (used by Widget to add heading).
  *         ) );
  *     endif;
  *
@@ -25,7 +26,8 @@ if ( ! function_exists( 'wds_logo_train' ) ) :
  *         $logo_train_html = wds_logo_train( array(
  *             'post_id'         => 1390, // ID of the post of the logo train.
  *             'size'            => 'large', // Image size.
- *             'logos_per_train' => false, // Group logo by X into separate <ul>'s
+ *             'logos_per_train' => false, // Group logo by X into separate <ul>'s.
+ *             'before_logos'    => false, // Output right before logos (used by Widget to add heading).
  *         ), 'return' ); // set to true to return value.
  *     endif;
  *
@@ -48,6 +50,7 @@ function wds_logo_train( $args, $return = false ) {
 		'no_img'          => false,
 		'size'            => 'large',
 		'logos_per_train' => ( is_int( $args['logos_per_train'] ) ) ? $args['logos_per_train'] : false,
+		'before_logos'    => false,
 	);
 	$args = wp_parse_args( $args, $defaults );
 
@@ -85,37 +88,39 @@ function wds_logo_train( $args, $return = false ) {
 	<?php if ( is_array( $trains ) ) : ?>
 		<div class="wds-logo-train-wrapper">
 
-		<?php foreach ( $trains as $train_id => $logos ) : ?>
-			<ul class="wds-logo-train train-<?php echo $train_id; ?>">
+		<?php echo $args['before_logos']; ?>
 
-				<?php foreach ( $logos as $attachment_id => $src ) :
+			<?php foreach ( $trains as $train_id => $logos ) : ?>
+				<ul class="wds-logo-train train-<?php echo $train_id; ?>">
 
-					$logo_details = $plugin->get_logo_details( $attachment_id, $args['size'] );
-					$src = $logo_details['src']; // A better URL
-					$alt = $logo_details['alt'];
-					$description_as_url = $logo_details['url'];
+					<?php foreach ( $logos as $attachment_id => $src ) :
 
-					?>
-						<!-- <a href=... -->
-						<?php if ( $description_as_url ) : ?><a href="<?php echo esc_url( $description_as_url ); ?>"><?php endif; ?>
+						$logo_details = $plugin->get_logo_details( $attachment_id, $args['size'] );
+						$src = $logo_details['src']; // A better URL
+						$alt = $logo_details['alt'];
+						$description_as_url = $logo_details['url'];
 
-							<li id="logo-<?php echo $logo_count; ?>" class="logo logo-<?php echo sanitize_title_with_dashes( basename( $src ) ); ?>" style="<?php $plugin->logo_background_inline_style( $src ); ?>">
+						?>
+							<!-- <a href=... -->
+							<?php if ( $description_as_url ) : ?><a href="<?php echo esc_url( $description_as_url ); ?>"><?php endif; ?>
 
-								<?php if ( ! $args['no_img'] ) : ?>
-									<img src="<?php echo esc_url( $src ); ?>" alt="<?php echo ( $alt ) ? $alt : __( 'Logo', 'wds-logo-train' ); ?>" />
-								<?php endif; ?>
+								<li id="logo-<?php echo $logo_count; ?>" class="logo logo-<?php echo sanitize_title_with_dashes( basename( $src ) ); ?>" style="<?php $plugin->logo_background_inline_style( $src ); ?>">
 
-							</li>
+									<?php if ( ! $args['no_img'] ) : ?>
+										<img src="<?php echo esc_url( $src ); ?>" alt="<?php echo ( $alt ) ? $alt : __( 'Logo', 'wds-logo-train' ); ?>" />
+									<?php endif; ?>
 
-						<?php if ( $description_as_url ) : ?></a><?php endif; ?>
-						<!-- /a -->
+								</li>
 
-					<?php $logo_count++; // Next logo ID. ?>
+							<?php if ( $description_as_url ) : ?></a><?php endif; ?>
+							<!-- /a -->
 
-				<?php endforeach; ?>
+						<?php $logo_count++; // Next logo ID. ?>
 
-			</ul>
-		<?php endforeach; ?>
+					<?php endforeach; ?>
+
+				</ul>
+			<?php endforeach; ?>
 
 		</div>
 	<?php endif; ?>

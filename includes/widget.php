@@ -93,13 +93,12 @@ class WDS_Logo_Train extends WP_Widget {
 		echo self::get_widget( array(
 			'before_widget'   => $args['before_widget'],
 			'after_widget'    => $args['after_widget'],
-			'before_title'    => $args['before_title'],
-			'after_title'     => $args['after_title'],
 
 			// Our Widget settings.
 			'size'            => $instance['size'],
 			'post_id'         => $instance['post_id'],
 			'logos_per_train' => $instance['logos_per_train'],
+			'train_title'     => $instance['train_title'],
 		) );
 
 	}
@@ -121,6 +120,7 @@ class WDS_Logo_Train extends WP_Widget {
 				'size'            => 'large',
 				'post_id'         => false,
 				'logos_per_train' => 'infinite',
+				'train_title'     => '',
 			),
 			(array) $atts,
 			self::$shortcode
@@ -139,6 +139,8 @@ class WDS_Logo_Train extends WP_Widget {
 				'post_id'         => $atts['post_id'],
 				'size'            => $atts['size'],
 				'logos_per_train' => $atts['logos_per_train'],
+				'train_title'     => $atts['train_title'],
+				'before_logos'     => ( isset( $atts['train_title'] ) ) ? self::maybe_add_heading( $atts['train_title'] ) : ''
 			), 'return' );
 		endif;
 
@@ -146,6 +148,23 @@ class WDS_Logo_Train extends WP_Widget {
 		$widget .= ( isset( $atts['after_widget'] ) ) ? $atts['after_widget'] : '';
 
 		return $widget;
+	}
+
+	/**
+	 * Checks if HTML is present, if not add a heading.
+	 * @param  string $maybe_html Saved DB value.
+	 * @return string             String with heading added if no HTML detected.
+	 */
+	protected function maybe_add_heading( $maybe_html ) {
+		if ( esc_html( $maybe_html ) == $maybe_html ) {
+
+			// If we have no HTML assume they need a heading.
+			return "<h2 class='train-title'>$maybe_html</h2>";
+		} else {
+
+			// If there is HTML, just use what they have.
+			return $maybe_html;
+		}
 	}
 
 	/**
@@ -164,6 +183,16 @@ class WDS_Logo_Train extends WP_Widget {
 		$instance['post_id'] = (int) $new_instance['post_id'];
 		$instance['size'] = (string) $new_instance['size'];
 		$instance['logos_per_train'] = absint( $new_instance['logos_per_train'] );
+		$instance['train_title'] = wp_kses( $new_instance['train_title'], wp_kses_allowed_html( array(
+			'h1'   => array(),
+			'h2'   => array(),
+			'h3'   => array(),
+			'h4'   => array(),
+			'h5'   => array(),
+			'h6'   => array(),
+			'div'  => array(),
+			'span' => array(),
+		) ) );
 
 		// Flush cache
 		$this->flush_widget_cache();
@@ -195,6 +224,14 @@ class WDS_Logo_Train extends WP_Widget {
 		);
 
 		?>
+
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'train_title' ) ); ?>">
+				<?php _e( 'Heading:', 'wds-logo-train' ); ?>
+			</label>
+			<input id="<?php echo esc_attr( $this->get_field_id( 'train_title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'train_title' ) ); ?>" class="widefat" value="<?php echo (string) $instance['train_title']; ?>">
+		</p>
+		<p class="description"><?php _e( 'Heading right above logos. Heading HTML allowed. E.g. <code>&lt;h1&gt;</code>, <code>&lt;h2&gt;</code>, <code>&lt;div&gt;</code>, etc.', 'wds-logo-train' ); ?></p>
 
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'post_id' ) ); ?>">
