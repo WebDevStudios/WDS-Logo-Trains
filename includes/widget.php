@@ -111,6 +111,7 @@ class WDS_Logo_Train extends WP_Widget {
 		$widget = '';
 
 		// Set up default values for attributes
+		// TODO: Defaults
 		$atts = shortcode_atts(
 			array(
 				// Ensure variables
@@ -128,10 +129,7 @@ class WDS_Logo_Train extends WP_Widget {
 		// Before widget hook
 		$widget .= $atts['before_widget'];
 
-		// Title
-		$widget .= ( $atts['title'] ) ? $atts['before_title'] . esc_html( $atts['title'] ) . $atts['after_title'] : '';
-
-		$widget .= wpautop( wp_kses_post( $atts['text'] ) );
+		// TODO: Output
 
 		// After widget hook
 		$widget .= $atts['after_widget'];
@@ -152,7 +150,9 @@ class WDS_Logo_Train extends WP_Widget {
 		$instance = $old_instance;
 
 		// Save the chosen Logo Train.
-		$instance['logo_train_id'] = (int) $new_instance['logo_train_id'];
+		$instance['post_id'] = (int) $new_instance['post_id'];
+		$instance['size'] = (string) $new_instance['size'];
+		$instance['logos_per_train'] = absint( $new_instance['logos_per_train'] );
 
 		// Flush cache
 		$this->flush_widget_cache();
@@ -177,15 +177,22 @@ class WDS_Logo_Train extends WP_Widget {
 			'fields'           => 'ids',
 		) );
 
+		$sizes = array(
+			'large' => __( 'Large', 'wds-logo-train' ), // At top because it's default.
+			'medium' => __( 'Medium', 'wds-logo-train' ),
+			'thumbnail' => __( 'Thumbnail', 'wds-logo-train' ),
+		);
+
 		?>
 
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'logo_train_id' ) ); ?>">
+			<label for="<?php echo esc_attr( $this->get_field_id( 'post_id' ) ); ?>">
 				<?php _e( 'Choose Logo Train:', 'wds-logo-train' ); ?>
 			</label>
-			<select id="<?php echo esc_attr( $this->get_field_id( 'logo_train_id' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'logo_train_id' ) ); ?>" style="max-width: 100%; min-width: 100%;">
+			<select id="<?php echo esc_attr( $this->get_field_id( 'post_id' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'post_id' ) ); ?>" style="max-width: 100%; min-width: 100%;">
 				<option><?php _e( '&mdash; None &mdash;', 'wds-logo-train' ); ?></option>
 
+				<!-- Logo Train ID -->
 				<?php if ( is_array( $logo_trains ) ) : ?>
 					<?php foreach( $logo_trains as $post_id ) :
 
@@ -193,11 +200,30 @@ class WDS_Logo_Train extends WP_Widget {
 					$logos = get_post_meta( $post_id, $this->plugin->meta_prefix( 'logos' ), true );
 
 					?>
-						<option value="<?php echo $post_id; ?>" <?php echo ( $post_id == $instance['logo_train_id'] ) ? 'selected="selected"' : ''; ?>><?php echo get_the_title( $post_id ); ?></option>
+						<option value="<?php echo $post_id; ?>" <?php echo ( $post_id == $instance['post_id'] ) ? 'selected="selected"' : ''; ?>><?php echo get_the_title( $post_id ); ?></option>
 					<?php endforeach; ?>
 				<?php endif; ?>
 			</select>
 		</p>
+
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'size' ) ); ?>">
+				<?php _e( 'Image Size:', 'wds-logo-train' ); ?>
+			</label>
+			<select id="<?php echo esc_attr( $this->get_field_id( 'size' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'size' ) ); ?>" style="max-width: 100%; min-width: 100%;">
+				<?php foreach ( $sizes as $size => $label ) : ?>
+					<option value="<?php echo $size; ?>" <?php echo ( $size == $instance['size'] ) ? 'selected="selected"' : ''; ?>><?php echo esc_html( $label ); ?></option>
+				<?php endforeach; ?>
+			</select>
+		</p>
+
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'logos_per_train' ) ); ?>">
+				<?php _e( 'Split Logos Into Sections of:', 'wds-logo-train' ); ?>
+			</label>
+			<input id="<?php echo esc_attr( $this->get_field_id( 'logos_per_train' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'logos_per_train' ) ); ?>" class="widefat" value="<?php echo (int) $instance['logos_per_train']; ?>">
+		</p>
+		<p class="description"><?php _e( 'This will create a separate <code>ul</code> for each <code>&times;</code> number of logos.', 'wds-logo-train' ); ?></p>
 
 		<?php
 	}

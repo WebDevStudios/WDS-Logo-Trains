@@ -188,10 +188,10 @@ class WDS_Logo_Trains {
 	 *
 	 * @return array                Details for the attachment/logo.
 	 */
-	function get_logo_details( $attachment_id ) {
+	function get_logo_details( $attachment_id, $size = 'large' ) {
 
 		// Get the desired attachment src for the size we want.
-		$details['src'] = wp_get_attachment_image_src( $attachment_id, $args['size'] );
+		$details['src'] = wp_get_attachment_image_src( $attachment_id, $size );
 		$details['src'] = ( isset( $details['src'][0] ) ) ? $details['src'][0] : $details['src'];
 
 		// Meta alt tag.
@@ -380,9 +380,10 @@ class WDS_Logo_Trains {
 			'id'         => $this->meta_prefix( 'logos' ),
 			'type'       => 'file_list',
 			'desc' => __( 'Add or Order Logos below. Select logo to edit it, other attributes, and URL.', 'cmb2' ),
-			'preview_size' => array( 50, 50 ),
+			'preview_size' => array( 50, 50 ), // Note we force height using admin-styles.scss
 		) );
 
+		// TODO: Add instructions for using template tag and shortcode.
 	}
 
 	/**

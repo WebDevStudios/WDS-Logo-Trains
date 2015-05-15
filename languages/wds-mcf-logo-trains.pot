@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Logo Trains 1.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wds-logo-trains\n"
-"POT-Creation-Date: 2015-05-15 20:26:56+00:00\n"
+"POT-Creation-Date: 2015-05-15 21:06:02+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,12 +25,38 @@ msgstr ""
 msgid "Adds a train of logos."
 msgstr ""
 
-#: includes/widget.php:184
+#: includes/widget.php:181
+msgid "Large"
+msgstr ""
+
+#: includes/widget.php:182
+msgid "Medium"
+msgstr ""
+
+#: includes/widget.php:183
+msgid "Thumbnail"
+msgstr ""
+
+#: includes/widget.php:190
 msgid "Choose Logo Train:"
 msgstr ""
 
-#: includes/widget.php:187
+#: includes/widget.php:193
 msgid "&mdash; None &mdash;"
+msgstr ""
+
+#: includes/widget.php:211
+msgid "Image Size:"
+msgstr ""
+
+#: includes/widget.php:222
+msgid "Split Logos Into Sections of:"
+msgstr ""
+
+#: includes/widget.php:226
+msgid ""
+"This will create a separate <code>ul</code> for each <code>&times;</code> "
+"number of logos."
 msgstr ""
 
 #: wds-logo-trains.php:310
@@ -89,7 +115,7 @@ msgstr ""
 msgid "Add or Order Logos below. Select logo to edit it, other attributes, and URL."
 msgstr ""
 
-#: wds-logo-trains.php:462
+#: wds-logo-trains.php:463
 msgid ""
 "Logo Trains is missing requirements and has been <a "
 "href=\"%s\">deactivated</a>. Please make sure all requirements are "
