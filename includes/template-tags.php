@@ -61,13 +61,13 @@ function wds_logo_train( $args ) {
 	<?php if ( is_array( $trains ) ) : ?>
 		<div class="wds-logo-train-wrapper">
 
-		<?php foreach ( $trains as $train_id => $train ) : ?>
+		<?php foreach ( $trains as $train_id => $logos ) : ?>
 			<ul class="wds-logo-train train-<?php echo $train_id; ?>">
 
-				<?php foreach ( $train as $attachment_id => $src ) :
+				<?php foreach ( $logos as $attachment_id => $src ) :
 
 					$logo_details = $plugin->get_logo_details( $attachment_id );
-					$src = $logo_details['src'];
+					$src = $logo_details['src']; // A better URL
 					$alt = $logo_details['alt'];
 					$description_as_url = $logo_details['url'];
 

@@ -151,15 +151,8 @@ class WDS_Logo_Train extends WP_Widget {
 		// Previously saved values
 		$instance = $old_instance;
 
-		// Sanitize title before saving to database
-		$instance['title'] = sanitize_text_field( $new_instance['title'] );
-
-		// Sanitize text before saving to database
-		if ( current_user_can( 'unfiltered_html' ) ) {
-			$instance['text'] = force_balance_tags( $new_instance['text'] );
-		} else {
-			$instance['text'] = stripslashes( wp_filter_post_kses( addslashes( $new_instance['text'] ) ) );
-		}
+		// Save the chosen Logo Train.
+		$instance['logo_train_id'] = (int) $new_instance['logo_train_id'];
 
 		// Flush cache
 		$this->flush_widget_cache();
@@ -174,17 +167,9 @@ class WDS_Logo_Train extends WP_Widget {
 	 */
 	public function form( $instance ) {
 
-		// If there are no settings, set up defaults
-		$instance = wp_parse_args( (array) $instance,
-			array(
-				'title' => $this->default_widget_title,
-				'text'  => '',
-			)
-		);
-
 		$logo_trains = get_posts( array(
 			'posts_per_page'   => -1,
-			'orderby'          => 'post_title',
+			'orderby'          => 'title',
 			'order'            => 'ASC',
 			'post_type'        => $this->plugin->post_type(),
 			'post_status'      => 'publish',
@@ -194,25 +179,25 @@ class WDS_Logo_Train extends WP_Widget {
 
 		?>
 
-		<select id="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'text' ) ); ?>">
-			<option><?php _e( '&mdash; Choose a Logo Train &mdash;', 'wds-logo-train' ); ?></option>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'logo_train_id' ) ); ?>">
+				<?php _e( 'Choose Logo Train:', 'wds-logo-train' ); ?>
+			</label>
+			<select id="<?php echo esc_attr( $this->get_field_id( 'logo_train_id' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'logo_train_id' ) ); ?>" style="max-width: 100%; min-width: 100%;">
+				<option><?php _e( '&mdash; None &mdash;', 'wds-logo-train' ); ?></option>
 
-			<?php if( is_array( $logo_trains ) ) : ?>
-				<?php foreach( $logo_trains as $logo_train ) :
+				<?php if ( is_array( $logo_trains ) ) : ?>
+					<?php foreach( $logo_trains as $post_id ) :
 
+					// Get the logos.
+					$logos = get_post_meta( $post_id, $this->plugin->meta_prefix( 'logos' ), true );
 
-				?>
-
-				<?php endforeach; ?>
-			<?php endif; ?>
-		</select>
-
-		<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'wds-logo-train' ); ?></label>
-		<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_html( $instance['title'] ); ?>" placeholder="optional" /></p>
-
-		<p><label for="<?php echo $this->get_field_id( 'text' ); ?>"><?php _e( 'Text:', 'wds-logo-train' ); ?></label>
-		<textarea class="widefat" rows="16" cols="20" id="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'text' ) ); ?>"><?php echo esc_textarea( $instance['text'] ); ?></textarea></p>
-		<p class="description"><?php esc_html_e( 'Basic HTML tags are allowed.', 'wds-logo-train' ); ?></p>
+					?>
+						<option value="<?php echo $post_id; ?>" <?php echo ( $post_id == $instance['logo_train_id'] ) ? 'selected="selected"' : ''; ?>><?php echo get_the_title( $post_id ); ?></option>
+					<?php endforeach; ?>
+				<?php endif; ?>
+			</select>
+		</p>
 
 		<?php
 	}

@@ -181,7 +181,14 @@ class WDS_Logo_Trains {
 		register_widget( 'WDS_Logo_Train' );
 	}
 
-	function get_logo_train_details( $attachment_id ) {
+	/**
+	 * Get the details of a logo (attachment).
+	 *
+	 * @param  int $attachment_id   The ID of the attachment.
+	 *
+	 * @return array                Details for the attachment/logo.
+	 */
+	function get_logo_details( $attachment_id ) {
 
 		// Get the desired attachment src for the size we want.
 		$details['src'] = wp_get_attachment_image_src( $attachment_id, $args['size'] );
