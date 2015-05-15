@@ -150,6 +150,9 @@ class WDS_Logo_Trains {
 		// Create custom post types.
 		add_action( 'init', array( $this, 'register_cpt' ) );
 
+		// Widget
+		add_action( 'widgets_init', array( $this, 'widget_init' ) );
+
 		// Add Custom Meta Boxes
 		add_action( 'cmb2_init', array( $this, 'logo_train_cmb2_init' ) );
 
@@ -167,6 +170,10 @@ class WDS_Logo_Trains {
 
 		// JS
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+	}
+
+	function widget_init() {
+		register_widget( 'WDS_Logo_Train' );
 	}
 
 	/**

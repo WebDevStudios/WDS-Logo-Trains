@@ -5,6 +5,14 @@
  */
 
 if ( ! function_exists( 'wds_logo_train') ) :
+
+/**
+ * Adds a logo train to the page.
+ *
+ * @param  array $args  Arguments for logo train.
+ *
+ * @return void
+ */
 function wds_logo_train( $args ) {
 
 	// Plugin instance.
