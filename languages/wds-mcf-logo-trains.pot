@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Logo Trains 1.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wds-logo-trains\n"
-"POT-Creation-Date: 2015-05-15 21:06:02+00:00\n"
+"POT-Creation-Date: 2015-05-15 21:21:13+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: grunt-wp-i18n 0.5.2\n"
 
-#: includes/template-tags.php:81
+#: includes/template-tags.php:105
 msgid "Logo"
 msgstr ""
 
@@ -25,35 +25,35 @@ msgstr ""
 msgid "Adds a train of logos."
 msgstr ""
 
-#: includes/widget.php:181
+#: includes/widget.php:192
 msgid "Large"
 msgstr ""
 
-#: includes/widget.php:182
+#: includes/widget.php:193
 msgid "Medium"
 msgstr ""
 
-#: includes/widget.php:183
+#: includes/widget.php:194
 msgid "Thumbnail"
 msgstr ""
 
-#: includes/widget.php:190
+#: includes/widget.php:201
 msgid "Choose Logo Train:"
 msgstr ""
 
-#: includes/widget.php:193
+#: includes/widget.php:204
 msgid "&mdash; None &mdash;"
 msgstr ""
 
-#: includes/widget.php:211
+#: includes/widget.php:222
 msgid "Image Size:"
 msgstr ""
 
-#: includes/widget.php:222
+#: includes/widget.php:233
 msgid "Split Logos Into Sections of:"
 msgstr ""
 
-#: includes/widget.php:226
+#: includes/widget.php:237
 msgid ""
 "This will create a separate <code>ul</code> for each <code>&times;</code> "
 "number of logos."

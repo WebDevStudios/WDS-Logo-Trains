@@ -4,16 +4,40 @@
  * Functions used by templates and Widgets.
  */
 
-if ( ! function_exists( 'wds_logo_train') ) :
+if ( ! function_exists( 'wds_logo_train' ) ) :
 
 /**
  * Adds a logo train to the page.
+ *
+ * Template tag example (Output):
+ *
+ *     if ( function_exists( 'wds_logo_train' ) ):
+ *         wds_logo_train( array(
+ *             'post_id'         => 1390, // ID of the post of the logo train.
+ *             'size'            => 'large', // Image size.
+ *             'logos_per_train' => false, // Group logo by X into separate <ul>'s
+ *         ) );
+ *     endif;
+ *
+ * Get Logo Train HTML (for a widget, etc):
+ *
+ *     if ( function_exists( 'wds_logo_train' ) ):
+ *         $logo_train_html = wds_logo_train( array(
+ *             'post_id'         => 1390, // ID of the post of the logo train.
+ *             'size'            => 'large', // Image size.
+ *             'logos_per_train' => false, // Group logo by X into separate <ul>'s
+ *         ), 'return' ); // set to true to return value.
+ *     endif;
+ *
+ * Shortcode usage:
+ *
+ *     [wds_logo_train size='large' post_id='']
  *
  * @param  array $args  Arguments for logo train.
  *
  * @return void
  */
-function wds_logo_train( $args ) {
+function wds_logo_train( $args, $return = false ) {
 
 	// Plugin instance.
 	$plugin = wds_logo_trains();
@@ -101,7 +125,13 @@ function wds_logo_train( $args ) {
 	// Echo output.
 	$html = ob_get_contents();
 	ob_end_clean();
-	echo $html;
+
+	// Return or echo?
+	if ( $return ) {
+		return $html;
+	} else {
+		echo $html;
+	}
 
 }
 endif;

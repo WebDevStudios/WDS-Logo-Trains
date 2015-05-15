@@ -115,21 +115,32 @@ class WDS_Logo_Train extends WP_Widget {
 		$atts = shortcode_atts(
 			array(
 				// Ensure variables
-				'before_widget' => '',
-				'after_widget'  => '',
-				'before_title'  => '',
-				'after_title'   => '',
-				'title'         => '',
-				'text'          => '',
+				'size'            => 'large',
+				'post_id'         => false,
+				'logos_per_train' => 'infinite',
 			),
 			(array) $atts,
 			self::$shortcode
 		);
 
+		// No post ID set (via shortcode);
+		if ( ! $atts['post_id'] ) {
+			global $post;
+
+			// Use the current post.
+			$post_id = $post->ID;
+		}
+
 		// Before widget hook
 		$widget .= $atts['before_widget'];
 
-		// TODO: Output
+		if ( function_exists( 'wds_logo_train' ) ):
+			$widget .= wds_logo_train( array(
+				'post_id'         => 1390,
+				'size'            => 'large',
+				'logos_per_train' => false,
+			), 'return' );
+		endif;
 
 		// After widget hook
 		$widget .= $atts['after_widget'];
