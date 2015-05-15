@@ -61,7 +61,7 @@ module.exports = function( grunt ) {
 			},
 			dist: {
 				files: {
-					'assets/css/wds-logo-train.css': 'assets/**/*.scss'
+					'assets/css/wds-logo-trains.css': 'assets/**/*.scss'
 				}
 			}
 		},

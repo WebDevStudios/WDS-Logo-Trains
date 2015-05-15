@@ -148,10 +148,24 @@ class WDS_Logo_Trains {
 
 		// Default styles
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
+
+		// JS
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+	}
+
+	protected function script_version() {
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			return time();
+		} else {
+			return $this->version;
+		}
+	}
+
+	public function enqueue_scripts() {
 	}
 
 	public function enqueue_styles() {
-		wp_enqueue_style( 'wds-logo-trains', plugins_url( 'assets/css/wds-logo-train.css', __FILE__ ), array(), time(), 'screen' );
+		wp_enqueue_style( 'wds-logo-train', plugins_url( 'assets/css/wds-logo-trains.css', __FILE__ ), array(), $this->script_version(), 'screen' );
 	}
 
 	/**
@@ -169,7 +183,7 @@ class WDS_Logo_Trains {
 		}
 
 		// Remove any inline actions (Quick Edit).
-		unset($actions['inline hide-if-no-js']);
+		unset( $actions['inline hide-if-no-js'] );
 
 		return $actions;
 	}
