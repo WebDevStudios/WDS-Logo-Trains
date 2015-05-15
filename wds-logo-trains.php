@@ -297,15 +297,8 @@ class WDS_Logo_Trains {
 			'name'       => __( 'Logo Order', 'mcf' ),
 			'id'         => $this->meta_prefix( 'logos' ),
 			'type'       => 'file_list',
-			'desc' => __( 'Add or Order Logos', 'cmb2' ),
+			'desc' => __( 'Add or Order Logos below. Select logo to edit it, other attributes, and URL.', 'cmb2' ),
 			'preview_size' => array( 50, 50 ),
-		) );
-
-		$box->add_field( array(
-			'name' => __( 'Link', 'mcf' ),
-			'desc' => __( 'Desc', 'cmb2' ),
-			'id'   => $this->meta_prefix( 'link' ),
-			'type' => 'text',
 		) );
 
 	}
