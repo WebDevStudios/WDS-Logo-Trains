@@ -66,7 +66,7 @@ function wds_logo_train( $args ) {
 
 				<?php foreach ( $train as $attachment_id => $src ) :
 
-					$logo_details = $plugin->get_logo_train_details( $attachment_id );
+					$logo_details = $plugin->get_logo_details( $attachment_id );
 					$src = $logo_details['src'];
 					$alt = $logo_details['alt'];
 					$description_as_url = $logo_details['url'];
