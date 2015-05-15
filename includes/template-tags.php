@@ -16,7 +16,7 @@ if ( ! function_exists( 'wds_logo_train') ) :
 function wds_logo_train( $args ) {
 
 	// Plugin instance.
-	$instance = wds_logo_trains();
+	$plugin = wds_logo_trains();
 
 	// Ensure defaults at least.
 	$defaults = array(
@@ -28,7 +28,7 @@ function wds_logo_train( $args ) {
 	$args = wp_parse_args( $args, $defaults );
 
 	// Logos
-	$logos = get_post_meta( $args['post_id'], $instance->meta_prefix( 'logos' ), true );
+	$logos = get_post_meta( $args['post_id'], $plugin->meta_prefix( 'logos' ), true );
 
 	// No logo, no use.
 	if ( ! is_array( $logos ) ) {
@@ -66,22 +66,16 @@ function wds_logo_train( $args ) {
 
 				<?php foreach ( $train as $attachment_id => $src ) :
 
-					// Get the desired attachment src for the size we want.
-					$src = wp_get_attachment_image_src( $attachment_id, $args['size'] );
-					$src = ( isset( $src[0] ) ) ? $src[0] : $src;
-
-					// Meta alt tag.
-					$alt = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
-
-					// We want to get the description (have to hack post_content for that).
-					$attachment = get_post( $attachment_id );
-					$description_as_url = $attachment->post_content;
+					$logo_details = $plugin->get_logo_train_details( $attachment_id );
+					$src = $logo_details['src'];
+					$alt = $logo_details['alt'];
+					$description_as_url = $logo_details['url'];
 
 					?>
 						<!-- <a href=... -->
 						<?php if ( $description_as_url ) : ?><a href="<?php echo esc_url( $description_as_url ); ?>"><?php endif; ?>
 
-							<li id="logo-<?php echo $logo_count; ?>" class="logo logo-<?php echo sanitize_title_with_dashes( basename( $src ) ); ?>" style="<?php $instance->logo_background_inline_style( $src ); ?>">
+							<li id="logo-<?php echo $logo_count; ?>" class="logo logo-<?php echo sanitize_title_with_dashes( basename( $src ) ); ?>" style="<?php $plugin->logo_background_inline_style( $src ); ?>">
 
 								<?php if ( ! $args['no_img'] ) : ?>
 									<img src="<?php echo esc_url( $src ); ?>" alt="<?php echo ( $alt ) ? $alt : __( 'Logo', 'wds-logo-train' ); ?>" />

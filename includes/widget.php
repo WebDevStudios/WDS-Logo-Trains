@@ -40,6 +40,13 @@ class WDS_Logo_Train extends WP_Widget {
 	protected static $shortcode = 'wds_logo_train';
 
 	/**
+	 * The instance of the plugin.
+	 *
+	 * @var object
+	 */
+	protected $plugin;
+
+	/**
 	 * Contruct widget.
 	 */
 	public function __construct() {
@@ -60,6 +67,9 @@ class WDS_Logo_Train extends WP_Widget {
 		add_action( 'deleted_post', array( $this, 'flush_widget_cache' ) );
 		add_action( 'switch_theme', array( $this, 'flush_widget_cache' ) );
 		add_shortcode( self::$shortcode, array( __CLASS__, 'get_widget' ) );
+
+		// Plugin instance.
+		$this->plugin = wds_logo_trains();
 	}
 
 	/**
@@ -172,7 +182,30 @@ class WDS_Logo_Train extends WP_Widget {
 			)
 		);
 
+		$logo_trains = get_posts( array(
+			'posts_per_page'   => -1,
+			'orderby'          => 'post_title',
+			'order'            => 'ASC',
+			'post_type'        => $this->plugin->post_type(),
+			'post_status'      => 'publish',
+			'suppress_filters' => true,
+			'fields'           => 'ids',
+		) );
+
 		?>
+
+		<select id="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'text' ) ); ?>">
+			<option><?php _e( '&mdash; Choose a Logo Train &mdash;', 'wds-logo-train' ); ?></option>
+
+			<?php if( is_array( $logo_trains ) ) : ?>
+				<?php foreach( $logo_trains as $logo_train ) :
+
+
+				?>
+
+				<?php endforeach; ?>
+			<?php endif; ?>
+		</select>
 
 		<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'wds-logo-train' ); ?></label>
 		<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_html( $instance['title'] ); ?>" placeholder="optional" /></p>

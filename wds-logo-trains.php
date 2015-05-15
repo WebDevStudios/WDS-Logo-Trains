@@ -32,7 +32,7 @@
  */
 
 /**
- * Built using generator-plugin-wp
+ * Built with the help of generator-plugin-wp
  */
 
 /**
@@ -172,8 +172,29 @@ class WDS_Logo_Trains {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 
+	/**
+	 * Add the Widget.
+	 *
+	 * @return void
+	 */
 	function widget_init() {
 		register_widget( 'WDS_Logo_Train' );
+	}
+
+	function get_logo_train_details( $attachment_id ) {
+
+		// Get the desired attachment src for the size we want.
+		$details['src'] = wp_get_attachment_image_src( $attachment_id, $args['size'] );
+		$details['src'] = ( isset( $details['src'][0] ) ) ? $details['src'][0] : $details['src'];
+
+		// Meta alt tag.
+		$details['alt'] = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
+
+		// We want to get the description (have to hack post_content for that).
+		$attachment = get_post( $attachment_id );
+		$details['url'] = $attachment->post_content;
+
+		return $details;
 	}
 
 	/**
@@ -236,6 +257,15 @@ class WDS_Logo_Trains {
 		unset( $actions['inline hide-if-no-js'] );
 
 		return $actions;
+	}
+
+	/**
+	 * Returns the post type set.
+	 *
+	 * @return string The post type setup for this plugin.
+	 */
+	public function post_type() {
+		return $this->post_type;
 	}
 
 	/**
