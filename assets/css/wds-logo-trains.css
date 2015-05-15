@@ -1,4 +1,60 @@
-.post-type-wds_logo_trains #_wds_logo_train_logos-status img {
-  height: 50px;
-  width: 50px;
+.wds-logo-train-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.wds-logo-train-wrapper .wds-logo-train {
+  list-style: none;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+  text-align: center;
+  min-height: 75px;
+}
+
+.wds-logo-train-wrapper .wds-logo-train .logo {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin: auto;
+  min-height: 75px;
+  min-width: 75px;
+  text-align: left;
+  display: inline-block;
+}
+
+.wds-logo-train-wrapper .wds-logo-train .logo img {
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+}
+
+.wds-logo-train-wrapper .wds-logo-train.visible {
+  display: block;
+}
+
+.wds-logo-train-wrapper .wds-logo-train.slide {
+  margin-left: 200%;
+  transition-delay: 0;
+  transition-duration: 5s;
+  transition-property: margin-left;
+  transition-timing: ease;
+  white-space: nowrap;
+}
+
+.wds-logo-train-wrapper .wds-logo-train.slide-out-right {
+  margin-left: 200%;
+}
+
+.wds-logo-train-wrapper .wds-logo-train.slide-to-middle {
+  margin-left: 0px;
+}
+
+.wds-logo-train-wrapper .wds-logo-train.slide-out-left {
+  margin-left: -200%;
+}
+
+.wds-logo-train-wrapper .wds-logo-train.slide-across-left {
+  margin-left: -400%;
 }

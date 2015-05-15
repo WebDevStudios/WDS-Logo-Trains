@@ -292,7 +292,7 @@ class WDS_Logo_Trains {
 			'name'       => __( 'Logo Order', 'mcf' ),
 			'id'         => $this->meta_prefix( 'logos' ),
 			'type'       => 'file_list',
-			'desc' => __( 'Desc', 'cmb2' ),
+			'desc' => __( 'Add or Order Logos', 'cmb2' ),
 			'preview_size' => array( 50, 50 ),
 		) );
 
