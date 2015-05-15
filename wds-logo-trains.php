@@ -51,7 +51,9 @@ class WDS_Logo_Trains {
 
 	/**
 	 * Creates or returns an instance of this class.
+	 *
 	 * @since  0.1.0
+	 *
 	 * @return WDS_Logo_Trains A single instance of this class.
 	 */
 	public static function get_instance() {
@@ -64,20 +66,22 @@ class WDS_Logo_Trains {
 
 	/**
 	 * Sets up our plugin
-	 * @since  1.0.1
+	 *
+	 * @since  1.0
 	 */
 	protected function __construct() {
 
 		// Get the header values easily.
 		$this->plugin_headers = $this->plugin_headers();
-
 		$this->text_domain = $this->header('Text Domain');
 		$this->version = $this->header('Version');
 
+		// Set other important info.
 		$this->basename = plugin_basename( __FILE__ );
 		$this->url      = plugin_dir_url( __FILE__ );
 		$this->path     = plugin_dir_path( __FILE__ );
 
+		// Start things up!
 		$this->plugin_classes();
 		$this->hooks();
 		$this->includes();
@@ -94,7 +98,8 @@ class WDS_Logo_Trains {
 
 	/**
 	 * Attach other plugin classes to the base plugin class.
-	 * @since 1.0.1
+	 *
+	 * @since 1.0
 	 */
 	function plugin_classes() {
 		// Attach other plugin classes to the base plugin class.
@@ -103,14 +108,20 @@ class WDS_Logo_Trains {
 
 	/**
 	 * One of the headers of the plugin
+	 *
 	 * @param  string $header The header you would like.
+	 *
 	 * @return mixed          The header value, false if unset.
 	 */
 	function header( $header ) {
 		return ( isset ( $this->plugin_headers[ $header ] ) ) ? $this->plugin_headers[ $header ] : false;
 	}
 
-	// The headers of the plugin.
+	/**
+	 * Returns the commented headers of the plugin
+	 *
+	 * @return array Headers.
+	 */
 	function plugin_headers() {
 		return get_file_data( __FILE__, array(
 			'Plugin Name' => 'Plugin Name',
@@ -126,12 +137,14 @@ class WDS_Logo_Trains {
 
 	/**
 	 * Add hooks and filters
-	 * @since 1.0.1
+	 *
+	 * @since 1.0
 	 */
 	public function hooks() {
 		register_activation_hook( __FILE__, array( $this, '_activate' ) );
 		register_deactivation_hook( __FILE__, array( $this, '_deactivate' ) );
 
+		// Init (because we always init things)
 		add_action( 'init', array( $this, 'init' ) );
 
 		// Create custom post types.
@@ -156,6 +169,11 @@ class WDS_Logo_Trains {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 
+	/**
+	 * When debugging, disabled cache.
+	 *
+	 * @return string Timestamp when debugging, actual version when not.
+	 */
 	protected function script_version() {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 			return time();
@@ -164,20 +182,38 @@ class WDS_Logo_Trains {
 		}
 	}
 
+	/**
+	 * Enqueue WP Admin only styles.
+	 *
+	 * @return void
+	 */
 	public function admin_enqueue_scripts() {
 		wp_enqueue_style( 'admin-wds-logo-train', plugins_url( 'assets/css/admin/wds-logo-trains.css', __FILE__ ), array(), $this->script_version(), 'screen' );
 	}
 
+	/**
+	 * Enqueue JS scripts.
+	 *
+	 * @return void
+	 */
 	public function enqueue_scripts() {
+		// There was once a script here, but now it's gone. Add one won't you?
 	}
 
+	/**
+	 * Enqueue public facing styles.
+	 *
+	 * @return void
+	 */
 	public function enqueue_styles() {
 		wp_enqueue_style( 'wds-logo-train', plugins_url( 'assets/css/public/wds-logo-trains.css', __FILE__ ), array(), $this->script_version(), 'screen' );
 	}
 
 	/**
 	 * Removes the Quick Edit from the bulk list options.
+	 *
 	 * @param  array $actions Default Actions
+	 *
 	 * @return array          Actions with any inline actions removed.
 	 */
 	public function remove_quick_edit( $actions ) {
@@ -243,7 +279,9 @@ class WDS_Logo_Trains {
 	}
 
 	/**
-	 * Register Logo Train CPT.
+	 * Registeres Logo Train CPT.
+	 *
+	 * @return void
 	 */
 	public function register_cpt() {
 
@@ -303,6 +341,14 @@ class WDS_Logo_Trains {
 
 	}
 
+	/**
+	 * Adds inline style for background image on the fly.
+	 *
+	 * @param  string  $src    The URL of the image.
+	 * @param  boolean $return Whether to return or echo the style.
+	 *
+	 * @return string          The inline CSS.
+	 */
 	public function logo_background_inline_style( $src, $return = false ) {
 		if ( $return ) {
 			return "background-image: url($src); ";
@@ -313,7 +359,8 @@ class WDS_Logo_Trains {
 
 	/**
 	 * Activate the plugin
-	 * @since  1.0.1
+	 *
+	 * @since  1.0
 	 */
 	function _activate() {
 		// Make sure any rewrite functionality has been loaded
@@ -323,7 +370,8 @@ class WDS_Logo_Trains {
 	/**
 	 * Deactivate the plugin
 	 * Uninstall routines should be in uninstall.php
-	 * @since  1.0.1
+	 *
+	 * @since  1.0
 	 */
 	function _deactivate() {
 		// Nothing to do.
@@ -331,8 +379,10 @@ class WDS_Logo_Trains {
 
 	/**
 	 * Init hooks
-	 * @since  1.0.1
-	 * @return null
+	 *
+	 * @since  1.0
+	 *
+	 * @return void
 	 */
 	public function init() {
 		if ( $this->check_requirements() ) {
@@ -342,7 +392,9 @@ class WDS_Logo_Trains {
 
 	/**
 	 * Check that all plugin requirements are met
-	 * @since  1.0.1
+	 *
+	 * @since  1.0
+	 *
 	 * @return boolean
 	 */
 	public static function meets_requirements() {
@@ -356,7 +408,7 @@ class WDS_Logo_Trains {
 	/**
 	 * Check if the plugin meets requirements and
 	 * disable it if they are not present.
-	 * @since  1.0.1
+	 * @since  1.0
 	 * @return boolean result of meets_requirements
 	 */
 	public function check_requirements() {
@@ -377,7 +429,7 @@ class WDS_Logo_Trains {
 	/**
 	 * Magic getter for our object.
 	 *
-	 * @since  1.0.1
+	 * @since  1.0
 	 * @param string $field
 	 * @throws Exception Throws an exception if the field is invalid.
 	 * @return mixed
@@ -397,7 +449,7 @@ class WDS_Logo_Trains {
 
 	/**
 	 * Include a file from the includes directory
-	 * @since  1.0.1
+	 * @since  1.0
 	 * @param  string $filename Name of the file to be included
 	 */
 	public static function includes( $filename = false ) {
@@ -427,5 +479,5 @@ function wds_logo_trains() {
 	return WDS_Logo_Trains::get_instance();
 }
 
-// Kick it off.
+// Bootup!
 wds_logo_trains();

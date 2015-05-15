@@ -1,30 +1,11 @@
-# Logo Trains #
-**Contributors:**      WebDevStudios
-**Donate link:**       http://webdevstudios.com
-**Tags:**
-**Requires at least:** 3.6.0
-**Tested up to:**      3.6.0
-**Stable tag:**        1.0.1
-**License:**           GPLv2
+# WDS Logo Trains
 
-## Description ##
+A boilerplate WordPress Plugin that adds a custom post type for creating "Logo Trains" ready for styling.
 
-Add logo train collections.
+Add via template tag, widget, or shortcode.
 
-## Installation ##
+# Changelog
 
-### Manual Installation ###
+## 1.0
 
-1. Upload the entire `/wds-mcf-logo-trains` directory to the `/wp-content/plugins/` directory.
-2. Activate Logo Trains through the 'Plugins' menu in WordPress.
-
-## Frequently Asked Questions ##
-
-
-## Screenshots ##
-
-
-## Changelog ##
-
-### 1.0.1 ###
-* First release
+- First version

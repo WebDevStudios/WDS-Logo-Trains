@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Functions used by templates and Widgets.
+ */
+
 if ( ! function_exists( 'wds_logo_train') ) :
 function wds_logo_train( $args ) {
 
@@ -9,31 +13,21 @@ function wds_logo_train( $args ) {
 	// Ensure defaults at least.
 	$defaults = array(
 		'post_id'         => false,
-		'before'          => '<div class = "wds-logo-train">',
-		'after'           => '</div>',
 		'no_img'          => false,
 		'size'            => 'thumbnail',
 		'logos_per_train' => ( is_int( $args['logos_per_train'] ) ) ? $args['logos_per_train'] : false,
 	);
 	$args = wp_parse_args( $args, $defaults );
 
-	// Make sure we slap the ID on there.
-	if ( is_int( $args['post_id'] ) ) {
-		$args['before'] = '<div class="wds-logo-train wds-logo-train-' . $args['id'];
-	} else {
-
-		// Exit out of here if there is no ID set.
-		return;
-	}
-
 	// Logos
 	$logos = get_post_meta( $args['post_id'], $instance->meta_prefix( 'logos' ), true );
 
+	// No logo, no use.
 	if ( ! is_array( $logos ) ) {
 		return;
 	}
 
-	// Sort logos by logos_per_train
+	// Sort logos by logos_per_train.
 	if ( is_array( $logos ) ) {
 		$train_count = 0;
 		$logo_count = 0;
@@ -49,9 +43,10 @@ function wds_logo_train( $args ) {
 		}
 	}
 
-	// Count different logos.
+	// Count our logos to give them an ID.
 	$logo_count = 0;
 
+	// Start output.
 	ob_start();
 	?>
 
@@ -63,46 +58,45 @@ function wds_logo_train( $args ) {
 
 				<?php foreach ( $train as $attachment_id => $src ) :
 
-					// Get the desired attachment src.
+					// Get the desired attachment src for the size we want.
 					$src = wp_get_attachment_image_src( $attachment_id, $args['size'] );
 					$src = ( isset( $src[0] ) ) ? $src[0] : $src;
 
-					// Meta
+					// Meta alt tag.
 					$alt = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
 
-					// We want to get the description (post_content).
+					// We want to get the description (have to hack post_content for that).
 					$attachment = get_post( $attachment_id );
 					$description_as_url = $attachment->post_content;
 
 					?>
-						<?php if ( $description_as_url ) : ?>
-							<a href="<?php echo esc_url( $description_as_url ); ?>">
-						<?php endif; ?>
-							<li id="logo-<?php echo $logo_count; ?>" class="logo logo-<?php echo sanitize_title_with_dashes( basename( $src ) ); ?>" style="<?php $instance->logo_background_inline_style( $src ); ?>">
+						<!-- <a href=... -->
+						<?php if ( $description_as_url ) : ?><a href="<?php echo esc_url( $description_as_url ); ?>"><?php endif; ?>
 
+							<li id="logo-<?php echo $logo_count; ?>" class="logo logo-<?php echo sanitize_title_with_dashes( basename( $src ) ); ?>" style="<?php $instance->logo_background_inline_style( $src ); ?>">
 
 								<?php if ( ! $args['no_img'] ) : ?>
 									<img src="<?php echo esc_url( $src ); ?>" alt="<?php echo ( $alt ) ? $alt : __( 'Logo', 'wds-logo-train' ); ?>" />
 								<?php endif; ?>
 
 							</li>
-						<?php if ( $description_as_url ) : ?>
-							</a>
-						<?php endif; ?>
 
-					<?php $logo_count++; // Next logo. ?>
+						<?php if ( $description_as_url ) : ?></a><?php endif; ?>
+						<!-- /a -->
+
+					<?php $logo_count++; // Next logo ID. ?>
 
 				<?php endforeach; ?>
 
-
 			</ul>
 		<?php endforeach; ?>
-
 
 		</div>
 	<?php endif; ?>
 
 	<?php
+
+	// Echo output.
 	$html = ob_get_contents();
 	ob_end_clean();
 	echo $html;
