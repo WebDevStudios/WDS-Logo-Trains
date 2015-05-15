@@ -232,6 +232,11 @@ class WDS_Logo_Trains {
 				case 'Published' :
 					$translated_text = __( 'Saved', $domain );
 					break;
+
+				// Here we guise the description as the URL parameter.
+				case 'Description' :
+					$translated_text = __( 'URL', $domain );
+					break;
 			}
 		}
 		return $translated_text;

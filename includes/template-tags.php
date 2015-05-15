@@ -70,12 +70,25 @@ function wds_logo_train( $args ) {
 					// Meta
 					$alt = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
 
+					// We want to get the description (post_content).
+					$attachment = get_post( $attachment_id );
+					$description_as_url = $attachment->post_content;
+
 					?>
-						<li id="logo-<?php echo $logo_count; ?>" class="logo logo-<?php echo sanitize_title_with_dashes( basename( $src ) ); ?>" style="<?php $instance->logo_background_inline_style( $src ); ?>">
-							<?php if ( ! $args['no_img'] ) : ?>
-								<img src="<?php echo esc_url( $src ); ?>" alt="<?php echo ( $alt ) ? $alt : __( 'Logo', 'wds-logo-train' ); ?>" />
-							<?php endif; ?>
-						</li>
+						<?php if ( $description_as_url ) : ?>
+							<a href="<?php echo esc_url( $description_as_url ); ?>">
+						<?php endif; ?>
+							<li id="logo-<?php echo $logo_count; ?>" class="logo logo-<?php echo sanitize_title_with_dashes( basename( $src ) ); ?>" style="<?php $instance->logo_background_inline_style( $src ); ?>">
+
+
+								<?php if ( ! $args['no_img'] ) : ?>
+									<img src="<?php echo esc_url( $src ); ?>" alt="<?php echo ( $alt ) ? $alt : __( 'Logo', 'wds-logo-train' ); ?>" />
+								<?php endif; ?>
+
+							</li>
+						<?php if ( $description_as_url ) : ?>
+							</a>
+						<?php endif; ?>
 
 					<?php $logo_count++; // Next logo. ?>
 
