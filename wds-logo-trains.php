@@ -235,7 +235,7 @@ class WDS_Logo_Trains {
 	public function enqueue_scripts() {
 
 		// Slick logo train animations.
-		wp_enqueue_script( 'slick-js', '//cdn.jsdelivr.net/jquery.slick/1.5.5/slick.min.js', array(
+		wp_enqueue_script( 'slick-js', plugins_url( 'assets/slick/slick.min.js', __FILE__ ), array(
 			'jquery',
 		), $version, true );
 
@@ -250,8 +250,8 @@ class WDS_Logo_Trains {
 		wp_enqueue_style( 'wds-logo-train', plugins_url( 'assets/css/public/wds-logo-trains.css', __FILE__ ), array(), $this->script_version(), 'screen' );
 
 		// Slick logo train animations.
-		wp_enqueue_style( 'slick-css', '//cdn.jsdelivr.net/jquery.slick/1.5.5/slick.css', array(), $version );
-		wp_enqueue_style( 'slick-css-theme', '//cdn.jsdelivr.net/jquery.slick/1.5.5/slick-theme.css', array( 'slick-css' ), $version );
+		wp_enqueue_style( 'slick-css', plugins_url( 'assets/slick/slick.css', __FILE__ ), array(), $version );
+		wp_enqueue_style( 'slick-css-theme', plugins_url( 'assets/slick/slick-theme.css', __FILE__ ), array( 'slick-css' ), $version );
 	}
 
 	/**
@@ -265,7 +265,7 @@ class WDS_Logo_Trains {
 
 		global $current_screen;
 
-		// Only on this CPT.
+		// Only on this CPT
 		if( $current_screen->post_type != $this->post_type ) {
 			return $actions;
 		}
