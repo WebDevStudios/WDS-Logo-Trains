@@ -239,6 +239,10 @@ class WDS_Logo_Trains {
 			'jquery',
 		), $version, true );
 
+		// Extra stuff.
+		wp_enqueue_script( 'wds-logo-train', plugins_url( 'assets/js/wds-logo-trains.js', __FILE__ ), array(
+			'jquery',
+		), $version, true );
 	}
 
 	/**
