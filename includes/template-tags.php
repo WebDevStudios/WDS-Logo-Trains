@@ -65,6 +65,7 @@ function wds_logo_train( $args, $return = false ) {
 		return;
 	}
 
+	// Animation settings (if animate is set).
 	if ( $args['animate'] && (int) $args['animate'] != 0 ) {
 
 		// Use this setting to animate
@@ -74,7 +75,7 @@ function wds_logo_train( $args, $return = false ) {
 		$args['logos_per_train'] = 0;
 
 		// Make a unique ID for this train instance.
-		$train_animate_id = time();
+		$train_animate_id = 'wds-logo-train-animate-id-' . time();
 	}
 
 	// Sort logos by logos_per_train.

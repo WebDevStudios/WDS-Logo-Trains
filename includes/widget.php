@@ -279,11 +279,11 @@ class WDS_Logo_Train extends WP_Widget {
 
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'animate' ) ); ?>">
-				<?php _e( 'Animate Time', 'wds-logo-train' ); ?>
+				<?php _e( 'Animation Timing (miliseconds)', 'wds-logo-train' ); ?>
 			</label>
 			<input id="<?php echo esc_attr( $this->get_field_id( 'animate' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'animate' ) ); ?>" class="widefat" value="<?php echo (int) $instance['animate']; ?>">
 		</p>
-		<p class="description"><?php _e( 'Leave blank for no animation, otherwise set timeing in milliseconds. E.g. <code>2000</code>.', 'wds-logo-train' ); ?></p>
+		<p class="description"><?php _e( 'Animate new logo every <code>&times</code> milliseconds. Leave blank for no animation. E.g. <code>2000</code> will animate every two seconds.', 'wds-logo-train' ); ?></p>
 
 		<?php
 	}
