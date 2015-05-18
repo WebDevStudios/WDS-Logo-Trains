@@ -13,10 +13,11 @@ if ( ! function_exists( 'wds_logo_train' ) ) :
  *
  *     if ( function_exists( 'wds_logo_train' ) ):
  *         wds_logo_train( array(
- *             'post_id'         => 1390, // ID of the post of the logo train.
+ *             'post_id'         => 1390, // (int) ID of the post of the logo train.
  *             'size'            => 'large', // Image size.
- *             'logos_per_train' => false, // Group logo by X into separate <ul>'s.
+ *             'logos_per_train' => false, // (int) Group logo by X into separate <ul>'s.
  *             'before_logos'    => false, // Output right before logos (used by Widget to add heading).
+ *             'animate'         => false, // (int) Set to milliseconds to animate logo train.
  *         ) );
  *     endif;
  *
@@ -24,10 +25,11 @@ if ( ! function_exists( 'wds_logo_train' ) ) :
  *
  *     if ( function_exists( 'wds_logo_train' ) ):
  *         $logo_train_html = wds_logo_train( array(
- *             'post_id'         => 1390, // ID of the post of the logo train.
+ *             'post_id'         => 1390, // (int) ID of the post of the logo train.
  *             'size'            => 'large', // Image size.
- *             'logos_per_train' => false, // Group logo by X into separate <ul>'s.
+ *             'logos_per_train' => false, // (int)  Group logo by X into separate <ul>'s.
  *             'before_logos'    => false, // Output right before logos (used by Widget to add heading).
+ *             'animate'         => false, // (int) Set to milliseconds to animate logo train.
  *         ), 'return' ); // set to true to return value.
  *     endif;
  *
@@ -51,6 +53,7 @@ function wds_logo_train( $args, $return = false ) {
 		'size'            => 'large',
 		'logos_per_train' => ( is_int( $args['logos_per_train'] ) ) ? $args['logos_per_train'] : false,
 		'before_logos'    => false,
+		'animate'         => false,
 	);
 	$args = wp_parse_args( $args, $defaults );
 
@@ -60,6 +63,18 @@ function wds_logo_train( $args, $return = false ) {
 	// No logo, no use.
 	if ( ! is_array( $logos ) ) {
 		return;
+	}
+
+	if ( $args['animate'] && (int) $args['animate'] != 0 ) {
+
+		// Use this setting to animate
+		$logos_per_train = $args['logos_per_train'];
+
+		// Reset logos per train to one train
+		$args['logos_per_train'] = 0;
+
+		// Make a unique ID for this train instance.
+		$train_animate_id = time();
 	}
 
 	// Sort logos by logos_per_train.
@@ -85,13 +100,31 @@ function wds_logo_train( $args, $return = false ) {
 	ob_start();
 	?>
 
+	<?php if ( $args['animate'] && (int) $args['animate'] != 0 ) : ?>
+
+	<!-- Animates the following logo train. -->
+	<script>
+		(function($) {
+			$( document ).ready( function(){
+				$( '#<?php echo $train_animate_id; ?>' ).slick( {
+					slidesToShow: <?php echo $logos_per_train; ?>,
+					slidesToScroll: 1,
+					autoplay: true,
+					autoplaySpeed: <?php echo $args['animate']; ?>,
+				} );
+			} );
+		})(jQuery);
+	</script>
+
+	<?php endif; ?>
+
 	<?php if ( is_array( $trains ) ) : ?>
 		<div class="wds-logo-train-wrapper">
 
 		<?php echo $args['before_logos']; ?>
 
 			<?php foreach ( $trains as $train_id => $logos ) : ?>
-				<ul class="wds-logo-train train-<?php echo $train_id; ?>">
+				<ul id="<?php echo ( isset( $train_animate_id ) ) ? $train_animate_id : ''; ?>" class="wds-logo-train train-<?php echo $train_id; ?>">
 
 					<?php foreach ( $logos as $attachment_id => $src ) :
 
@@ -102,7 +135,7 @@ function wds_logo_train( $args, $return = false ) {
 
 						?>
 							<!-- <a href=... -->
-							<?php if ( $description_as_url ) : ?><a href="<?php echo esc_url( $description_as_url ); ?>"><?php endif; ?>
+							<a href="<?php echo ( $description_as_url ) ? esc_url( $description_as_url ) : '#'; ?>">
 
 								<li id="logo-<?php echo $logo_count; ?>" class="logo logo-<?php echo sanitize_title_with_dashes( basename( $src ) ); ?>" style="<?php $plugin->logo_background_inline_style( $src ); ?>">
 
@@ -112,7 +145,7 @@ function wds_logo_train( $args, $return = false ) {
 
 								</li>
 
-							<?php if ( $description_as_url ) : ?></a><?php endif; ?>
+							</a>
 							<!-- /a -->
 
 						<?php $logo_count++; // Next logo ID. ?>

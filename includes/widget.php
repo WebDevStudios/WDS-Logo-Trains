@@ -99,6 +99,7 @@ class WDS_Logo_Train extends WP_Widget {
 			'post_id'         => $instance['post_id'],
 			'logos_per_train' => $instance['logos_per_train'],
 			'train_title'     => $instance['train_title'],
+			'animate'         => $instance['animate'],
 		) );
 
 	}
@@ -121,6 +122,7 @@ class WDS_Logo_Train extends WP_Widget {
 				'post_id'         => false,
 				'logos_per_train' => 'infinite',
 				'train_title'     => '',
+				'animate'         => false,
 			),
 			(array) $atts,
 			self::$shortcode
@@ -140,7 +142,8 @@ class WDS_Logo_Train extends WP_Widget {
 				'size'            => $atts['size'],
 				'logos_per_train' => $atts['logos_per_train'],
 				'train_title'     => $atts['train_title'],
-				'before_logos'     => ( isset( $atts['train_title'] ) ) ? self::maybe_add_heading( $atts['train_title'] ) : ''
+				'animate'         => $atts['animate'],
+				'before_logos'    => ( isset( $atts['train_title'] ) ) ? self::maybe_add_heading( $atts['train_title'] ) : ''
 			), 'return' );
 		endif;
 
@@ -183,6 +186,7 @@ class WDS_Logo_Train extends WP_Widget {
 		$instance['post_id'] = (int) $new_instance['post_id'];
 		$instance['size'] = (string) $new_instance['size'];
 		$instance['logos_per_train'] = absint( $new_instance['logos_per_train'] );
+		$instance['animate'] = absint( $new_instance['animate'] );
 		$instance['train_title'] = wp_kses( $new_instance['train_title'], wp_kses_allowed_html( array(
 			'h1'   => array(),
 			'h2'   => array(),
@@ -272,6 +276,14 @@ class WDS_Logo_Train extends WP_Widget {
 			<input id="<?php echo esc_attr( $this->get_field_id( 'logos_per_train' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'logos_per_train' ) ); ?>" class="widefat" value="<?php echo (int) $instance['logos_per_train']; ?>">
 		</p>
 		<p class="description"><?php _e( 'This will create a separate <code>ul</code> for each <code>&times;</code> number of logos.', 'wds-logo-train' ); ?></p>
+
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'animate' ) ); ?>">
+				<?php _e( 'Animate Time', 'wds-logo-train' ); ?>
+			</label>
+			<input id="<?php echo esc_attr( $this->get_field_id( 'animate' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'animate' ) ); ?>" class="widefat" value="<?php echo (int) $instance['animate']; ?>">
+		</p>
+		<p class="description"><?php _e( 'Leave blank for no animation, otherwise set timeing in milliseconds. E.g. <code>2000</code>.', 'wds-logo-train' ); ?></p>
 
 		<?php
 	}

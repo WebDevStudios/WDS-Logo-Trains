@@ -233,7 +233,12 @@ class WDS_Logo_Trains {
 	 * @return void
 	 */
 	public function enqueue_scripts() {
-		// There was once a script here, but now it's gone. Add one won't you?
+
+		// Slick logo train animations.
+		wp_enqueue_script( 'slick-js', '//cdn.jsdelivr.net/jquery.slick/1.5.5/slick.min.js', array(
+			'jquery',
+		), $version, true );
+
 	}
 
 	/**
@@ -243,6 +248,10 @@ class WDS_Logo_Trains {
 	 */
 	public function enqueue_styles() {
 		wp_enqueue_style( 'wds-logo-train', plugins_url( 'assets/css/public/wds-logo-trains.css', __FILE__ ), array(), $this->script_version(), 'screen' );
+
+		// Slick logo train animations.
+		wp_enqueue_style( 'slick-css', '//cdn.jsdelivr.net/jquery.slick/1.5.5/slick.css', array(), $version );
+		wp_enqueue_style( 'slick-css-theme', '//cdn.jsdelivr.net/jquery.slick/1.5.5/slick-theme.css', array( 'slick-css' ), $version );
 	}
 
 	/**
