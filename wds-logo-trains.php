@@ -4,7 +4,7 @@
 * Plugin Name: Logo Trains
 * Plugin URI:  http://webdevstudios.com
 * Description: Add logo train collections.
-* Version:     1.0
+* Version:     1.0.1
 * Author:      WebDevStudios
 * Author URI:  http://webdevstudios.com
 * Donate link: http://webdevstudios.com
