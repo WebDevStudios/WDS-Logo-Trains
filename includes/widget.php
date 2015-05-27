@@ -158,7 +158,7 @@ class WDS_Logo_Train extends WP_Widget {
 	 * @param  string $maybe_html Saved DB value.
 	 * @return string             String with heading added if no HTML detected.
 	 */
-	protected function maybe_add_heading( $maybe_html ) {
+	protected static function maybe_add_heading( $maybe_html ) {
 		if ( esc_html( $maybe_html ) == $maybe_html ) {
 
 			// If we have no HTML assume they need a heading.
