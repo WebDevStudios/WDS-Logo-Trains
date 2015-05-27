@@ -457,10 +457,6 @@ class WDS_Logo_Trains {
 	 * @return boolean
 	 */
 	public static function meets_requirements() {
-		// Do checks for required classes / functions
-		// function_exists('') & class_exists('')
-
-		// We have met all requirements
 		return true;
 	}
 
@@ -511,18 +507,13 @@ class WDS_Logo_Trains {
 	 * @since  1.0
 	 * @param  string $filename Name of the file to be included
 	 */
-	public static function includes( $filename = false ) {
-		if ( $filename ) {
-			$file = self::dir( './includes/'. $filename .'.php' );
-			if ( file_exists( $file ) ) {
-				return include_once( $file );
-			}
-		}
+	public static function includes() {
+		require_once( 'includes/template-tags.php' );
+		require_once( 'includes/widget.php' );
 
-		foreach ( new DirectoryIterator( trailingslashit( dirname( __FILE__ ) ) . 'includes' ) as $fileInfo ) {
-			if( ! $fileInfo->isDot() ) {
-				require_once trailingslashit( $fileInfo->getPath() ) . $fileInfo->getFilename();
-			}
+		// CMB2
+		if ( ! class_exists( 'CMB2' ) ) {
+			require_once( 'includes/cmb2/init.php' );
 		}
 	}
 }
