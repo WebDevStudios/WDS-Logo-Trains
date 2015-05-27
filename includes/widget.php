@@ -276,11 +276,11 @@ class WDS_Logo_Train extends WP_Widget {
 
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'logos_per_train' ) ); ?>">
-				<?php _e( 'Split Logos Into Sections of:', 'wds-logo-train' ); ?>
+				<?php _e( 'Logo Trains:', 'wds-logo-train' ); ?>
 			</label>
 			<input id="<?php echo esc_attr( $this->get_field_id( 'logos_per_train' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'logos_per_train' ) ); ?>" class="widefat" value="<?php echo (int) $instance['logos_per_train']; ?>">
 		</p>
-		<p class="description"><?php _e( 'This will create a separate <code>ul</code> for each <code>&times;</code> number of logos.', 'wds-logo-train' ); ?></p>
+		<p class="description"><?php _e( 'This will create a separate <code>ul</code> for each <code>&times;</code> number of logos when not animated. When animated, this will be the max number of logos shown at one time.', 'wds-logo-train' ); ?></p>
 
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'animate' ) ); ?>">
