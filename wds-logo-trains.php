@@ -1,16 +1,16 @@
 <?php
 
-/**
-* Plugin Name: Logo Trains
-* Plugin URI:  http://webdevstudios.com
-* Description: Add logo train collections.
-* Version:     1.0.1
-* Author:      WebDevStudios
-* Author URI:  http://webdevstudios.com
-* Donate link: http://webdevstudios.com
-* License:     GPLv2
-* Text Domain: wds-logo-trains
-* Domain Path: /languages
+/*
+Plugin Name: Logo Trains
+Plugin URI:  http://webdevstudios.com
+Description: Add logo train collections.
+Version:     1.0.1
+Author:      WebDevStudios
+Author URI:  http://webdevstudios.com
+Donate link: http://webdevstudios.com
+License:     GPLv2
+Text Domain: wds-logo-trains
+Domain Path: /languages
 */
 
 /**
