@@ -13,3 +13,7 @@ Add via template tag, widget, or shortcode.
 ## 1.0
 
 - First version
+
+# Known Issues
+
+- Can only have one logo train per page (this is an issue with Slick)
