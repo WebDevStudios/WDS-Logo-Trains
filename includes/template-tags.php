@@ -108,11 +108,28 @@ function wds_logo_train( $args, $return = false ) {
 		(function($) {
 			$( document ).ready( function(){
 				$( '#<?php echo $train_animate_id; ?>' ).slick( {
-					slidesToShow: <?php echo $logos_per_train; ?>,
+					slidesToShow: setSlidesToShow(),
 					slidesToScroll: 1,
 					autoplay: true,
 					autoplaySpeed: <?php echo $args['animate']; ?>,
 				} );
+
+				//Set the number of slides to show based on screen width
+				function setSlidesToShow() {
+
+					var windowWidth = $(window).width();
+					var slidesToShow;
+
+					if ( windowWidth < 1024 && windowWidth >= 451 ) {
+						slidesToShow = 5;
+					} else if ( windowWidth <= 450 ) {
+						slidesToShow = 1;
+					} else {
+						slidesToShow = <?php echo $logos_per_train; ?>;
+					}
+
+					return slidesToShow;
+				}
 			} );
 		})(jQuery);
 	</script>
