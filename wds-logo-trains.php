@@ -412,11 +412,11 @@ class WDS_Logo_Trains {
 			<div style="clear: both;">
 				<p><?php _e( 'You can add this logo train either as a <a href="widgets.php" target="_blank">Widget</a> or as a shortcode:', $this->text_domain ); ?></p>
 
-				<p><code>[wds-logo-train post_id=&quot;<?php echo $_GET['post']; ?>&quot; animate=&quot;2000&quot; logos_per_train=&quot;5&quot;]</code></p>
+				<p><code>[wds_logo_train post_id=&quot;<?php echo $_GET['post']; ?>&quot; animate=&quot;2000&quot; logos_per_train=&quot;5&quot;]</code></p>
 
 				<p class="description" style="margin-left: 40px;"><?php _e( 'The above will initially show 5 logos, and animate a new logo every 2 seconds. Adjust <code>logos_per_train</code> and <code>animate</code> to your needs.', $this->text_domain ); ?></p>
 
-				<p><code>[wds-logo-train post_id=&quot;<?php echo $_GET['post']; ?>&quot;]</code></p>
+				<p><code>[wds_logo_train post_id=&quot;<?php echo $_GET['post']; ?>&quot;]</code></p>
 
 				<p class="description" style="margin-left: 40px;"><?php _e( 'The above will show all logos at once side by side without animation.', $this->text_domain ); ?></p>
 			</div>

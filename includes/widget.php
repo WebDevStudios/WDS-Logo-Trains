@@ -66,7 +66,12 @@ class WDS_Logo_Train extends WP_Widget {
 		add_action( 'save_post',    array( $this, 'flush_widget_cache' ) );
 		add_action( 'deleted_post', array( $this, 'flush_widget_cache' ) );
 		add_action( 'switch_theme', array( $this, 'flush_widget_cache' ) );
+
+		// Shortcodes
 		add_shortcode( self::$shortcode, array( __CLASS__, 'get_widget' ) );
+		add_shortcode( 'wds-logo-train', array( __CLASS__, 'get_widget' ) );
+
+		global $shortcode_tags;
 
 		// Plugin instance.
 		$this->plugin = wds_logo_trains();
