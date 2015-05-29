@@ -407,6 +407,10 @@ class WDS_Logo_Trains {
 	function logo_train_instructions() {
 		global $post;
 
+		if ( ! isset( $_GET['post'] ) ) {
+			return;
+		}
+
 		ob_start();
 		?>
 			<div style="clear: both;">
