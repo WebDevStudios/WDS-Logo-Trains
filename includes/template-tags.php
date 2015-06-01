@@ -105,33 +105,37 @@ function wds_logo_train( $args, $return = false ) {
 
 	<!-- Animates the following logo train. -->
 	<script>
-		(function($) {
+		( function( $ ) {
 			$( document ).ready( function(){
+
+				// Animate this slick ID.
 				$( '#<?php echo $train_animate_id; ?>' ).slick( {
-					slidesToShow: setSlidesToShow(),
+					slidesToShow: wds_hero_widget_viewport_slides_to_show(),
 					slidesToScroll: 1,
 					autoplay: true,
 					autoplaySpeed: <?php echo $args['animate']; ?>,
 				} );
 
-				//Set the number of slides to show based on screen width
-				function setSlidesToShow() {
+				/**
+				 * Sets the number of slides to show based on the width of the viewport.
+				 */
+				function wds_hero_widget_viewport_slides_to_show() {
 
-					var windowWidth = $(window).width();
-					var slidesToShow;
+					var window_width = $(window).width();
+					var slides_to_show = 0;
 
-					if ( windowWidth < 1024 && windowWidth >= 451 ) {
-						slidesToShow = 5;
-					} else if ( windowWidth <= 450 ) {
-						slidesToShow = 1;
+					if ( window_width < 1024 && window_width >= 451 ) {
+						slides_to_show = 5;
+					} else if ( window_width <= 450 ) {
+						slides_to_show = 1;
 					} else {
-						slidesToShow = <?php echo $logos_per_train; ?>;
+						slides_to_show = <?php echo $logos_per_train; ?>;
 					}
 
-					return slidesToShow;
+					return slides_to_show;
 				}
 			} );
-		})(jQuery);
+		} )( jQuery );
 	</script>
 
 	<?php endif; ?>
