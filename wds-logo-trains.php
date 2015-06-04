@@ -269,6 +269,10 @@ class WDS_Logo_Trains {
 
 		global $current_screen;
 
+		if ( ! $current_screen ) {
+			return;
+		}
+
 		// Only on this CPT
 		if( $current_screen->post_type != $this->post_type ) {
 			return $actions;
