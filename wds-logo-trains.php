@@ -1,7 +1,7 @@
 <?php
 
 /*
-Plugin Name: Logo Trains
+Plugin Name: WDS Logo Trains
 Plugin URI:  http://webdevstudios.com
 Description: Add logo train collections.
 Version:     1.1-dev
