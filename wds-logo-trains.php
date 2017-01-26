@@ -40,14 +40,14 @@ Domain Path: /languages
  */
 class WDS_Logo_Trains {
 
-	protected $version;
-	protected $url      = '';
-	protected $path     = '';
-	protected $basename = '';
+	protected        $version;
+	protected        $url             = '';
+	protected        $path            = '';
+	protected        $basename        = '';
 	protected static $single_instance = null;
-	protected $post_type = 'wds_logo_trains';
-	protected $text_domain;
-	protected $meta_prefix = '_wds_logo_train_';
+	protected        $post_type       = 'wds_logo_trains';
+	protected        $text_domain;
+	protected        $meta_prefix     = '_wds_logo_train_';
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -73,8 +73,8 @@ class WDS_Logo_Trains {
 
 		// Get the header values easily.
 		$this->plugin_headers = $this->plugin_headers();
-		$this->text_domain = $this->header('Text Domain');
-		$this->version = $this->header('Version');
+		$this->text_domain    = $this->header( 'Text Domain' );
+		$this->version        = $this->header( 'Version' );
 
 		// Set other important info.
 		$this->basename = plugin_basename( __FILE__ );
@@ -125,11 +125,11 @@ class WDS_Logo_Trains {
 	function plugin_headers() {
 		return get_file_data( __FILE__, array(
 			'Plugin Name' => 'Plugin Name',
-			'Plugin URI' => 'Plugin URI',
-			'Version' => 'Version',
+			'Plugin URI'  => 'Plugin URI',
+			'Version'     => 'Version',
 			'Description' => 'Description',
-			'Author' => 'Author',
-			'Author URI' => 'Author URI',
+			'Author'      => 'Author',
+			'Author URI'  => 'Author URI',
 			'Text Domain' => 'Text Domain',
 			'Domain Path' => 'Domain Path',
 		), 'plugin' );
@@ -170,6 +170,51 @@ class WDS_Logo_Trains {
 
 		// JS
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+
+		// Make a train sound.
+		add_action( 'admin_enqueue_scripts', array( $this, 'noise_maker' ) );
+	}
+
+	/**
+	 * Loads the js to play noises.
+	 *
+	 * @author Gary Kovar
+	 *
+	 * @since  0.1.0
+	 */
+	public function noise_maker() {
+
+		if ( $this->is_train_cpt() ) {
+			wp_register_script( 'noise_maker', $this->url . 'assets/js/wds-noises.js' );
+
+			$audio_file = $this->url . 'assets/media/whistle.mp3';
+			wp_localize_script( 'noise_maker', 'audioFile', $audio_file );
+
+			wp_enqueue_script( 'noise_maker' );
+		}
+	}
+
+	/**
+	 * Check and see if this is cpt post page.
+	 *
+	 * @author Gary Kovar
+	 *
+	 * @since  0.1.0
+	 */
+	public function is_train_cpt() {
+
+		// For pages containing post_type=wds_logo_trains
+		if ( isset( $_GET['post_type'] ) && 'wds_logo_trains' === $_GET['post_type'] ) {
+			return true;
+		}
+
+		// Check existing post for CPT.
+		if ( isset( $_GET['post'] ) && 'wds_logo_trains' === get_post_type( $_GET['post'] ) ) {
+			return true;
+		}
+
+		return false;
+
 	}
 
 	/**
@@ -184,7 +229,7 @@ class WDS_Logo_Trains {
 	/**
 	 * Get the details of a logo (attachment).
 	 *
-	 * @param  int $attachment_id   The ID of the attachment.
+	 * @param  int $attachment_id The ID of the attachment.
 	 *
 	 * @return array                Details for the attachment/logo.
 	 */
@@ -199,7 +244,7 @@ class WDS_Logo_Trains {
 		$details['alt'] = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
 
 		// We want to get the description (have to hack post_content for that).
-		$attachment = get_post( $attachment_id );
+		$attachment     = get_post( $attachment_id );
 		$details['url'] = $attachment->post_content;
 
 		return $details;
@@ -274,7 +319,7 @@ class WDS_Logo_Trains {
 		}
 
 		// Only on this CPT
-		if( $current_screen->post_type != $this->post_type ) {
+		if ( $current_screen->post_type != $this->post_type ) {
 			return $actions;
 		}
 
@@ -299,8 +344,8 @@ class WDS_Logo_Trains {
 	 * @return void
 	 */
 	public function hide_visibility_screen() {
-			if( $this->post_type == get_post_type() ){
-				echo '
+		if ( $this->post_type == get_post_type() ) {
+			echo '
 					<!-- Hides the publishing options -->
 					<style type="text/css">
 						#misc-publishing-actions,
@@ -309,7 +354,7 @@ class WDS_Logo_Trains {
 						}
 					</style>
 				';
-			}
+		}
 	}
 
 	/**
@@ -337,6 +382,7 @@ class WDS_Logo_Trains {
 					break;
 			}
 		}
+
 		return $translated_text;
 	}
 
@@ -361,7 +407,7 @@ class WDS_Logo_Trains {
 			'search_items'       => __( 'Search Logo Trains', 'mcf' ),
 			'parent_item_colon'  => __( 'Parent Logo Trains:', 'mcf' ),
 			'not_found'          => __( 'No Logo Train found.', 'mcf' ),
-			'not_found_in_trash' => __( 'No Logo Train found in Trash.', 'mcf' )
+			'not_found_in_trash' => __( 'No Logo Train found in Trash.', 'mcf' ),
 		);
 
 		$args = array(
@@ -385,21 +431,21 @@ class WDS_Logo_Trains {
 	public function logo_train_cmb2_init() {
 
 		$box = new_cmb2_box( array(
-			'id'            => $this->meta_prefix( 'metabox' ),
-			'title'         => __( 'Logo Train', 'mcf' ),
-			'object_types'  => array( $this->post_type, ), // Post type
-			'context'       => 'normal',
-			'priority'      => 'high',
-			'show_names'    => true,
+			'id'           => $this->meta_prefix( 'metabox' ),
+			'title'        => __( 'Logo Train', 'mcf' ),
+			'object_types' => array( $this->post_type, ), // Post type
+			'context'      => 'normal',
+			'priority'     => 'high',
+			'show_names'   => true,
 		) );
 
 		$box->add_field( array(
-			'name'       => __( 'Logo Order', 'mcf' ),
-			'id'         => $this->meta_prefix( 'logos' ),
-			'type'       => 'file_list',
-			'desc'       => __( 'Add or Order Logos below. Select logo to edit it, other attributes, and URL.', 'cmb2' ),
+			'name'         => __( 'Logo Order', 'mcf' ),
+			'id'           => $this->meta_prefix( 'logos' ),
+			'type'         => 'file_list',
+			'desc'         => __( 'Add or Order Logos below. Select logo to edit it, other attributes, and URL.', 'cmb2' ),
 			'preview_size' => array( 50, 50 ), // Note we force height using admin-styles.scss
-			'after_field' => $this->logo_train_instructions(),
+			'after_field'  => $this->logo_train_instructions(),
 		) );
 	}
 
@@ -417,20 +463,22 @@ class WDS_Logo_Trains {
 
 		ob_start();
 		?>
-			<div style="clear: both;">
-				<p><?php _e( 'You can add this logo train either as a <a href="widgets.php" target="_blank">Widget</a> or as a shortcode:', $this->text_domain ); ?></p>
+		<div style="clear: both;">
+			<p><?php _e( 'You can add this logo train either as a <a href="widgets.php" target="_blank">Widget</a> or as a shortcode:', $this->text_domain ); ?></p>
 
-				<p><code>[wds_logo_train post_id=&quot;<?php echo $_GET['post']; ?>&quot; animate=&quot;2000&quot; logos_per_train=&quot;5&quot;]</code></p>
+			<p><code>[wds_logo_train post_id=&quot;<?php echo $_GET['post']; ?>&quot; animate=&quot;2000&quot;
+					logos_per_train=&quot;5&quot;]</code></p>
 
-				<p class="description" style="margin-left: 40px;"><?php _e( 'The above will initially show 5 logos, and animate a new logo every 2 seconds. Adjust <code>logos_per_train</code> and <code>animate</code> to your needs.', $this->text_domain ); ?></p>
+			<p class="description" style="margin-left: 40px;"><?php _e( 'The above will initially show 5 logos, and animate a new logo every 2 seconds. Adjust <code>logos_per_train</code> and <code>animate</code> to your needs.', $this->text_domain ); ?></p>
 
-				<p><code>[wds_logo_train post_id=&quot;<?php echo $_GET['post']; ?>&quot;]</code></p>
+			<p><code>[wds_logo_train post_id=&quot;<?php echo $_GET['post']; ?>&quot;]</code></p>
 
-				<p class="description" style="margin-left: 40px;"><?php _e( 'The above will show all logos at once side by side without animation.', $this->text_domain ); ?></p>
-			</div>
+			<p class="description" style="margin-left: 40px;"><?php _e( 'The above will show all logos at once side by side without animation.', $this->text_domain ); ?></p>
+		</div>
 		<?php
 		$html = ob_get_contents();
 		ob_end_clean();
+
 		return $html;
 	}
 
@@ -497,6 +545,7 @@ class WDS_Logo_Trains {
 	/**
 	 * Check if the plugin meets requirements and
 	 * disable it if they are not present.
+	 *
 	 * @since  1.0
 	 * @return boolean result of meets_requirements
 	 */
@@ -504,7 +553,7 @@ class WDS_Logo_Trains {
 		if ( ! $this->meets_requirements() ) {
 			// Display our error
 			echo '<div id="message" class="error">';
-				echo '<p>' . sprintf( __( 'Logo Trains is missing requirements and has been <a href="%s">deactivated</a>. Please make sure all requirements are available.', 'wds-logo-trains' ), admin_url( 'plugins.php' ) ) . '</p>';
+			echo '<p>' . sprintf( __( 'Logo Trains is missing requirements and has been <a href="%s">deactivated</a>. Please make sure all requirements are available.', 'wds-logo-trains' ), admin_url( 'plugins.php' ) ) . '</p>';
 			echo '</div>';
 			// Deactivate our plugin
 			deactivate_plugins( $this->basename );
@@ -519,7 +568,9 @@ class WDS_Logo_Trains {
 	 * Magic getter for our object.
 	 *
 	 * @since  1.0
+	 *
 	 * @param string $field
+	 *
 	 * @throws Exception Throws an exception if the field is invalid.
 	 * @return mixed
 	 */
@@ -532,13 +583,15 @@ class WDS_Logo_Trains {
 			case 'path':
 				return $this->$field;
 			default:
-				throw new Exception( 'Invalid '. __CLASS__ .' property: ' . $field );
+				throw new Exception( 'Invalid ' . __CLASS__ . ' property: ' . $field );
 		}
 	}
 
 	/**
 	 * Include a file from the includes directory
+	 *
 	 * @since  1.0
+	 *
 	 * @param  string $filename Name of the file to be included
 	 */
 	public static function includes() {
